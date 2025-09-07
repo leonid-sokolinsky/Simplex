@@ -18,7 +18,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_MAX_PSEUDOPROJECTING_ITER	100000000		// Maximum acceptable number of iterations in Pseudoprojection on flat
 
-/*============================== adlittle LP problem ===========================*/
+/*============================== adlittle LP problem ===========================*
 // Number of equations: 15
 // Subspace dimension: 82
 #define PP_PROBLEM_NAME		"adlittle"
@@ -96,12 +96,17 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 83			// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 30.812149845828220173774356124984	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO					1E-6	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		6		// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_DEBUG --------------------------------
 #define PP_PROJECTION_COUNT				10000000			// Each PP_PROJECTION_COUNT-th iteration to be outputted inside Flat_MaxProjection(*) or Flat_BipProjection(*)
 //------------------------------------------------------------------------------
-//PC_bsf_ProcessResults error: v is NOT vertex with precision of PP_EPS_ON_HYPERPLANE = 1e-07 and PP_EPS_ZERO = 1e-10 !!!!!!!!!!
+// Elapsed time: 1
+// Number of iterations: 527
+// Computed objective value: 30.81214984745895790752
+// Maximal objective value:  30.8121498458282196963864
+// Relative error = 5.29e-11
+// Distance to polytope: 7.2681371e-10
 //------------------------------------------------------------------------------
 
 /*============================== fit1d LP problem ==============================*
@@ -161,9 +166,14 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 896644.82186304572966200464196045	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-9	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		2E-3	// Accuracy of belonging to hyperplane
+#define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
-// Assertion failed : success, file D : \YandexDisk\_private\Programming\BSF\Simplex\Problem - bsfCode.cpp, line 2996
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 896644.821862691431306303
+// Maximal objective value:  896644.821863045683130622
+// Relative error = 3.95e-13
+// Distance to polytope: 4.68053e-11
 //------------------------------------------------------------------------------
 
 /*============================== kb2 LP problem ================================*
@@ -314,7 +324,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 3.8679237e-08
 //------------------------------------------------------------------------------
 
-/*============================== stocfor1 LP problem ============================*
+/*============================== stocfor1 LP problem ============================*/
 // Number of equations: 63
 // Subspace dimension: 48
 #define PP_PROBLEM_NAME		"stocfor1"	
@@ -322,8 +332,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 111	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 41131.976219436406065682760731514 // Exact maximum value of objective function
 //--------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-12	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-7	// Precision for point to be in halfspace
+#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		42	// Precision for point to be in halfspace
 //------------------------------------------------------------------------------
 // Assertion failed: success, file D:\YandexDisk\_private\Programming\BSF\Simplex\Problem-bsfCode.cpp, line 2996
 //------------------------------------------------------------------------------

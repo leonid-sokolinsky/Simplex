@@ -781,11 +781,15 @@ namespace SF {
 
 				int i_ne_0 = -1; // Search for a non-zero below
 				for (int i = j + 1; i < mi; i++) {
-					if (fabs(PD_D[i][j]) > eps_zero) {
-						i_ne_0 = i;
-						break;
+
+					if (i_ne_0 == -1) {
+						if (fabs(PD_D[i][j]) > eps_zero)
+							i_ne_0 = i;
 					}
-					PD_D[i][j] = 0;
+					else {
+						if (fabs(PD_D[i][j]) > fabs(PD_D[i_ne_0][j]))
+							i_ne_0 = i;
+					}
 				}
 
 				if (i_ne_0 > -1) {
@@ -809,11 +813,16 @@ namespace SF {
 				else {
 
 					int j_ne_0 = -1; // Search for a non-zero on the right
-					for (int lj = j + 1; lj < PD_n; lj++)
-						if (fabs(PD_D[j][lj]) > eps_zero) {
-							j_ne_0 = lj;
-							break;
+					for (int lj = j + 1; lj < PD_n; lj++) {
+						if (j_ne_0 == -1) {
+							if (fabs(PD_D[j][lj]) > eps_zero)
+								j_ne_0 = lj;
 						}
+						else {
+							if (fabs(PD_D[j][lj]) > fabs(PD_D[j][j_ne_0]))
+								j_ne_0 = lj;
+						}
+					}
 
 					if (j_ne_0 == -1)
 						continue;
@@ -2364,7 +2373,7 @@ namespace SF {
 		double a_DoT_x_MinuS_b = Vector_DotProduct(PD_A[i], x) - PD_b[i];
 		double distanceToHyperplane = fabs(a_DoT_x_MinuS_b) / PD_norm_a[i];
 
-		/**/
+		/**
 		#ifdef PP_DEBUG
 		if (distanceToHyperplane > eps_on_hyperplane && distanceToHyperplane < eps_on_hyperplane * 10) {
 			cout << "PointBelongsToHalfspace_i: Distance from testing point is less than " << eps_on_hyperplane * 10 << ", but greater than " << eps_on_hyperplane << "!" << endl;
@@ -2383,7 +2392,7 @@ namespace SF {
 	static inline bool PointBelongsToHyperplane_i(PT_vector_T x, int i, double eps_on_hyperplane) {
 		double dist = Distance_PointToHyperplane_i(x, i);
 
-		/**/
+		/**
 		#ifdef PP_DEBUG
 		if (dist > eps_on_hyperplane && dist < eps_on_hyperplane * 10) {
 			cout << "PointBelongsToHyperplane_i: Distance from testing point is less than " << eps_on_hyperplane * 10 << ", but greater than " << eps_on_hyperplane << "!" << endl;
@@ -2807,12 +2816,12 @@ namespace PF {
 
 		*success = true;
 
-		for (int i = 0; i < n; i++)   
-			for (int j = 0; j < n; j++) 
-					PD_D[i][j] = PD_A_v[i][j];
+		for (int i = 0; i < n; i++)   // Make a copy of original matrix
+			for (int j = 0; j < n; j++)
+				PD_D[i][j] = PD_A_v[i][j];
 
-		for (int i = 0; i < n; i++) { // identity matrix 
-			for (int j = 0; j < n; j++) 
+		for (int i = 0; i < n; i++) { // Make identity matrix 
+			for (int j = 0; j < n; j++)
 				PD_AI_v[i][j] = 0;
 			PD_AI_v[i][i] = 1;
 		}
@@ -2821,11 +2830,16 @@ namespace PF {
 
 			if (fabs(PD_D[j][j]) <= eps_zero) { // Search for a non-zero below
 				int i_ne_0 = -1;
-				for (int i = j + 1; i < n; i++)
-					if (fabs(PD_D[i][j]) > eps_zero) {
-						i_ne_0 = i;
-						break;
+				for (int i = j + 1; i < n; i++) {
+					if (i_ne_0 == -1) {
+						if (fabs(PD_D[i][j]) > eps_zero)
+							i_ne_0 = i;
 					}
+					else {
+						if (fabs(PD_D[i][j]) > fabs(PD_D[i_ne_0][j]))
+							i_ne_0 = i;
+					}
+				}
 
 				if (i_ne_0 > -1) { // Permute the rows
 					for (int l = 0; l < n; l++) {
@@ -2840,11 +2854,16 @@ namespace PF {
 				}
 				else {
 					int j_ne_0 = -1; // Search for a non-zero on the right
-					for (int lj = j + 1; lj < n; lj++)
-						if (fabs(PD_D[j][lj]) > eps_zero) {
-							j_ne_0 = lj;
-							break;
+					for (int lj = j + 1; lj < n; lj++) {
+						if (j_ne_0 == -1) {
+							if (fabs(PD_D[j][lj]) > eps_zero)
+								j_ne_0 = lj;
 						}
+						else {
+							if (fabs(PD_D[j][lj]) > fabs(PD_D[j][j_ne_0]))
+								j_ne_0 = lj;
+						}
+					}
 
 					if (j_ne_0 == -1) {
 						/* Debug _Make_AI_v**

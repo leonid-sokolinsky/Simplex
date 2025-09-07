@@ -27,11 +27,11 @@ This source code has been produced with using BSF-skeleton
 #include "../_Problems-Klee-Minty-Cube.h"
 #define PP_PATH "../../Set-of-LP-Problems/Klee-Minty-Cube/"
 
-/**/
+/**
 #include "../_Problems-Miscellaneous.h"
 #define PP_PATH "../../Set-of-LP-Problems/Miscellaneous-LP/"
 
-/**
+/**/
 #include "../_Problems-NetLib-LP.h"
 #define PP_PATH "../../Set-of-LP-Problems/NetLib-LP/"
 
@@ -41,7 +41,7 @@ This source code has been produced with using BSF-skeleton
 
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_DEBUG
-#define PP_MATRIX_OUTPUT
+//#define PP_MATRIX_OUTPUT
 //#define PP_SAVE_RESULT
 //#define PP_OPT_MIN // Optimization by minimum
 
