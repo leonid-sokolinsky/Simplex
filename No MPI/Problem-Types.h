@@ -31,7 +31,7 @@ struct PT_MPS_column_T {
 	int j;
 };
 
-struct PT_MPS_vpBound_T {
+struct PT_MPS_upBound_T {
 	int varIndex;
 	double value;
 };

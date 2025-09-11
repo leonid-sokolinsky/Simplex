@@ -58,7 +58,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== simpleCube LP problem =========================*/
+/*============================== simpleCube LP problem =========================*
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"simpleCube"
 #ifdef PP_MPS_FORMAT
@@ -70,7 +70,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #endif
 #define PP_MAX_OBJ_VALUE 		60000
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 // Elapsed time: 0
@@ -88,7 +88,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 3		// Number of variables
 #define PP_MAX_OBJ_VALUE 		50000
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 
 // Elapsed time: 0
@@ -96,6 +96,26 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Computed objective value: 50000
 // Maximal objective value:  50000
 // Relative error = 0
+//------------------------------------------------------------------------------
+
+/*============================== square4D LP problem =========================*/
+#define PP_MPS_FORMAT
+#define PP_PROBLEM_NAME	"square4D"
+#define PP_M 7		// Number of constrains
+#define PP_N 4		// Number of variables
+#define PP_MAX_OBJ_VALUE 		36200
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_BASIC_VECTORS_ONLY
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 2
+// Computed objective value: 36200
+// Maximal objective value:  36200
+// Relative error = 0
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
 /*============================== pyramid LP problem =========================*
@@ -151,11 +171,9 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 4		// Number of variables
 #define PP_MAX_OBJ_VALUE 		90000
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
-#define PP_EPS_PROJECTION			1E-10		// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
+#define PP_EPS_PROJECTION			1E-10	// Accuracy of belonging to hyperplane
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
-
-
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 2
@@ -175,8 +193,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
-
-
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 1
