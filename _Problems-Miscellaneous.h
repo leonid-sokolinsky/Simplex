@@ -35,7 +35,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 2.9540375e-17
 //------------------------------------------------------------------------------
 
-/*============================== wiki LP problem ============================*
+/*============================== wiki LP problem ============================*/
 #define PP_PROBLEM_NAME	"wiki"
 #define PP_MPS_FORMAT
 #define PP_M 2		// Number of constrains
@@ -98,7 +98,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Relative error = 0
 //------------------------------------------------------------------------------
 
-/*============================== square4D LP problem =========================*/
+/*============================== square4D LP problem =========================*
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"square4D"
 #define PP_M 7		// Number of constrains

@@ -28,8 +28,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11		// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8		// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 /// Elapsed time: 0
 // Number of iterations: 4
@@ -49,8 +47,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO						1E-11		// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE			1E-10		// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 2
@@ -70,8 +66,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO						1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE			1E-7	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 16
@@ -91,8 +85,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-9	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9		// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 321
@@ -112,10 +104,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
-//#define PP_EPS_ZERO				1E-4	// Accuracy for comparison with zero
-//#define PP_EPS_ON_HYPERPLANE		1E-6	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 273
 // Number of iterations: 305
@@ -135,9 +123,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO						1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE			1E-5	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH		1E+6	// Length of Objective Vector
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 1
 // Number of iterations: 11
@@ -156,8 +141,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 2
@@ -177,8 +160,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-6	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 16
@@ -200,7 +181,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_BASIC_VECTORS_ONLY
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 14
@@ -220,8 +200,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 32
@@ -241,8 +219,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //-------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //----------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 2
@@ -262,8 +238,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //--------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-11	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //--------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 1
@@ -283,8 +257,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //--------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 8
@@ -304,8 +276,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_NORMALIZATION
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 30
@@ -324,7 +294,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 41131.976219436406065682760731514 // Exact maximum value of objective function
 //--------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		42	// Precision for point to be in halfspace
+#define PP_EPS_ON_HYPERPLANE		12	// Precision for point to be in halfspace
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 57

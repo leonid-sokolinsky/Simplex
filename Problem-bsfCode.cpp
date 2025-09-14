@@ -63,13 +63,7 @@ void PC_bsf_Init(bool* success) {
 	Matrix_Normalization();
 	#endif // PP_NORMALIZATION
 
-	// Index of constraints being equations
-	PD_meq = 0;
-	for (int i = 0; i < PD_m; i++)
-		if (PD_isEquation[i]) {
-			PD_basis_v[PD_meq] = i;
-			PD_meq++;
-		}
+	List_equations(PD_isEquation, PD_basis_v, &PD_meq);
 
 	PD_meq_basis = PD_meq;
 
@@ -91,13 +85,7 @@ void PC_bsf_Init(bool* success) {
 
 	PD_supportSubspaceDim = PD_n - PD_meq_basis;	// Dimension of the subspace of intersection of support hyperplanes
 
-	// Index of all boundary hyperplanes
-	PD_mne = 0;
-	for (int i = 0; i < PD_m; i++)
-		if (!PD_isEquation[i]) {
-			PD_neHyperplanes[PD_mne] = i;
-			PD_mne++;
-		}
+	List_inequalities(PD_isEquation, PD_neHyperplanes, &PD_mne);
 
 	*success = MTX_LoadPoint(PD_v, PP_MTX_POSTFIX_V);
 	if (*success == false)
@@ -756,7 +744,7 @@ namespace SF {
 		*inequalitiesCount = 0;
 		for (int i = 0; i < _m; i++) {
 			if (!PD_isEquation[i]) {
-				inequalitiesList[i] = PD_isEquation[i];
+				inequalitiesList[*inequalitiesCount] = i;
 				(*inequalitiesCount)++;
 			}
 		}
@@ -788,13 +776,13 @@ namespace SF {
 			notIncludingHalfspacesList[mo] = -1;
 	}
 
-	static inline void MakeNeHyperplane_v(PT_vector_T u, int* neHyperplanes_all, int mneh_all, int* neHyperplanes_v, int* mneh_v, double eps_on_hyperplane) {
-		// List of hyperplanes that are not equations and include point u.
-		*mneh_v = 0;
+	static inline void MakeNeHyperplane_x(PT_vector_T x, int* neHyperplanes_all, int mneh_all, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane) {
+		// List of boundary hyperplanes that include point u.
+		*mneh_x = 0;
 		for (int i = 0; i < mneh_all; i++) {
-			if (PointBelongsToHyperplane_i(u, neHyperplanes_all[i], eps_on_hyperplane)) {
-				neHyperplanes_v[*mneh_v] = neHyperplanes_all[i];
-				(*mneh_v)++;
+			if (PointBelongsToHyperplane_i(x, neHyperplanes_all[i], eps_on_hyperplane)) {
+				neHyperplanes_x[*mneh_x] = neHyperplanes_all[i];
+				(*mneh_x)++;
 			}
 		}
 	}
@@ -836,7 +824,7 @@ namespace SF {
 			return;
 		}
 
-		Matrix_CopyConstraintsToD(list_i, mi);
+		Matrix_CopyToD(list_i, mi);
 
 		/* Debug Matrix_Rank **
 		#define WIDTH 9
@@ -856,6 +844,7 @@ namespace SF {
 		for (int j = 0; j < maxRank; j++) {
 
 			if (fabs(_D[j][j]) <= eps_zero) {
+				_D[j][j] = 0;
 
 				int i_ne_0 = -1; // Search for a non-zero below
 				for (int i = j + 1; i < mi; i++) {
@@ -863,6 +852,8 @@ namespace SF {
 					if (i_ne_0 == -1) {
 						if (fabs(_D[i][j]) > eps_zero)
 							i_ne_0 = i;
+						else
+							_D[i][j];
 					}
 					else {
 						if (fabs(_D[i][j]) > fabs(_D[i_ne_0][j]))
@@ -895,6 +886,8 @@ namespace SF {
 						if (j_ne_0 == -1) {
 							if (fabs(_D[j][lj]) > eps_zero)
 								j_ne_0 = lj;
+							else
+								_D[j][lj] = 0;
 						}
 						else {
 							if (fabs(_D[j][lj]) > fabs(_D[j][j_ne_0]))
@@ -925,10 +918,10 @@ namespace SF {
 			}
 
 
-			if (_D[j][j] != 1) {
+			if (fabs(_D[j][j] - 1) > eps_zero) {
 				factor = _D[j][j];
 				for (int lj = j; lj < _n; lj++)
-					if (_D[j][lj] != 0)
+					if (fabs(_D[j][lj]) > eps_zero)
 						_D[j][lj] = _D[j][lj] / factor;
 
 				/* Debug Matrix_Rank **
@@ -942,12 +935,16 @@ namespace SF {
 				cout << "------------------" << endl;
 				/* End Debug */
 			}
+			else
+				_D[j][j] = 1;
 
 			for (int i = j + 1; i < mi; i++) {
 				factor = _D[i][j];
 				for (int lj = j; lj < _n; lj++)
-					if (_D[j][lj] != 0)
+					if (fabs(_D[j][lj]) > eps_zero)
 						_D[i][lj] = _D[i][lj] - _D[j][lj] * factor;
+					else
+						_D[j][lj] = 0;
 			}
 			*rank = *rank + 1;
 
@@ -977,7 +974,7 @@ namespace SF {
 		/* End Debug */
 	} // End Matrix_Rank
 
-	static void Matrix_CopyConstraintsToD(int* list_i, int count) {
+	static void Matrix_CopyToD(int* list_i, int count) {
 		assert(count <= _m);
 		for (int i = 0; i < count; i++)
 			for (int j = 0; j < _n; j++)
@@ -3029,7 +3026,7 @@ namespace PF {
 	}
 
 	static inline void MakeBasis_v(PT_vector_T v, PT_vector_i_T basis_v) {
-		MakeNeHyperplane_v(v, PD_neHyperplanes, PD_mne, PD_neHyperplanes_v, &PD_mneh_v, PP_EPS_ON_HYPERPLANE);
+		MakeNeHyperplane_x(v, PD_neHyperplanes, PD_mne, PD_neHyperplanes_v, &PD_mneh_v, PP_EPS_ON_HYPERPLANE);
 
 		PD_m_v = PD_meq_basis + PD_mneh_v;
 		assert(PD_m_v <= PP_MM);
@@ -3048,20 +3045,6 @@ namespace PF {
 				return false;
 		}
 		return true;
-	}
-
-	static inline bool PointIsVertex(PT_vector_T v, double eps_on_hyperplane) {
-		int rank;
-		int basis_v[PP_MM];
-
-		MakeNeHyperplane_v(v, PD_neHyperplanes, PD_mne, basis_v, &PD_m_v, PP_EPS_ON_HYPERPLANE);
-		assert(PD_m_v <= PP_MM);
-		Matrix_Rank(basis_v, PD_m_v, PP_EPS_ZERO, &rank);
-		assert(PD_supportSubspaceDim > 0 && PD_supportSubspaceDim <= _n);
-		if (rank >= PD_supportSubspaceDim)
-			return true;
-		else
-			return false;
 	}
 
 	static inline void PreparationForIteration(PT_vector_i_T basis_v) {

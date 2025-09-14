@@ -33,9 +33,9 @@ namespace SF {
 	void	List_neHyperplanes_x(PT_vector_T x, int* neHyperplanes, int mneh, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
 	void	MakeColumnOfNorms(PT_matrix_T A, PT_column_T norm_a);
 	void	MakeListOfNotIncludingHalfspaces(PT_vector_T x, int* notIncludingHalfspacesList, double eps);
-	void	MakeNeHyperplane_v(PT_vector_T v, int* neHyperplanes_all, int mneh_all, int* neHyperplanes_v, int* mneh_v, double eps_on_hyperplane);
+	void	MakeNeHyperplane_x(PT_vector_T x, int* neHyperplanes_all, int mneh_all, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
 	void	Matrix_Basis(int* list_i, int* mi, double eps_zero);
-	void	Matrix_CopyConstraintsToD(int* list_i, int count);
+	void	Matrix_CopyToD(int* list_i, int count);
 	void	Matrix_Normalization(void);
 	void	Matrix_Rank(int* list_i, int mi, double eps_zero, int* rank);
 	bool	MPS___Load_Problem();

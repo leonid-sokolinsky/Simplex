@@ -40,6 +40,7 @@ This source code has been produced with using BSF-skeleton
 #define PP_METHOD_NAME "Simplex noMPI"
 
 //-------------------------- Compilation Modes ---------------------------------
+#define PP_NORMALIZATION
 #define PP_DEBUG
 //#define PP_MATRIX_OUTPUT
 //#define PP_SAVE_RESULT
