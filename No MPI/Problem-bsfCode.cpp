@@ -213,6 +213,15 @@ void PC_bsf_MapF(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T* reduceElem, int
 	Vector_MultiplyByNumber(y, lambda_min, lambda_DOT_y);
 	Vector_Addition(BSF_sv_parameter.v, lambda_DOT_y, reduceElem->v_nex);
 	reduceElem->objF_nex = ObjF(reduceElem->v_nex);
+
+	#ifdef PP_GRADIENT
+	double norm_y = Vector_Norm(y);
+	PT_vector_T v_grad;
+	Vector_DivideByNumber(y, norm_y, v_grad);
+	Vector_Addition(BSF_sv_parameter.v, v_grad, v_grad);
+	reduceElem->objF_grd = ObjF(v_grad);
+	#endif // PP_GRADIENT
+
 } // end PC_bsf_MapF
 
 void PC_bsf_MapF_1(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T_1* reduceElem, int* success) {
@@ -373,16 +382,23 @@ void PC_bsf_ProcessResults_3(PT_bsf_reduceElem_T_3* reduceResult, int reduceCoun
 }
 
 void PC_bsf_ReduceF(PT_bsf_reduceElem_T* x, PT_bsf_reduceElem_T* y, PT_bsf_reduceElem_T* z) { // z = x o y
-	if (x->objF_nex >= y->objF_nex) {
+	#ifdef PP_GRADIENT
+	if (x->objF_grd >= y->objF_grd)
+	#else
+	if (x->objF_nex >= y->objF_nex) 
+	#endif // PP_GRADIENT
+	{
 		z->i_star = x->i_star;
 		z->j_star = x->j_star;
 		z->objF_nex = x->objF_nex;
+		z->objF_grd = x->objF_grd;
 		Vector_Copy((*x).v_nex, (*z).v_nex);
 	}
 	else {
 		z->i_star = y->i_star;
 		z->j_star = y->j_star;
 		z->objF_nex = y->objF_nex;
+		z->objF_grd = y->objF_grd;
 		Vector_Copy((*y).v_nex, (*z).v_nex);
 	}
 }

@@ -11,25 +11,15 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 ================================================================================*/
 #pragma once
 
-//#define PP_GRADIENT
 
 //============================== Problem Parameters ============================
 // PP_OBJECTIVE_VECTOR_LENGTH - direct dependence on dimension PD_n.
 // P_EPS_ZERO - inverse dependence on PP_OBJECTIVE_VECTOR_LENGTH.
 //------------------------------------------------------------------------------
-#ifndef PP_GRADIENT
-#define PP_EPS_ZERO					1E-11			// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		(PP_EPS_ZERO*10)// Accuracy of belonging to hyperplane
-#define PP_EPS_PROJECTION			PP_EPS_ZERO		// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7			// Length of Objective Vector
+#define PP_EPS_ZERO				1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-11	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
-#define PP_MAXPROJECTION // It can cause a stuck in the loop. In this case, you should increase PP_EPS_PROJECTION or decrease PP_OBJECTIVE_VECTOR_LENGTH.
-//------------------------------------------------------------------------------
-#endif
-#define PP_EPS_RELATIVE_ERROR		1E-3			// Used if defined PP_CHECK_MAX_OBJ_VALUE 
-//------------------------------ ifdef PP_DEBUG --------------------------------
-#define PP_PROJECTION_COUNT				100000000			// Each PP_PROJECTION_COUNT iteration to be outputted inside Flat_MaxProjection(*)
-
+#define PP_GRADIENT
 //------------------------------------------------------------------------------
 
 /*============================== Klee-Minty5 LP problem ========================*
@@ -39,12 +29,12 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 3125
 //------------------------------------------------------------------------------
-#ifdef PP_GRADIENT
-#define PP_EPS_ZERO					1E-10				// Accuracy for comparison with zero
-#define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)	// Accuracy of belonging to hyperplane
-#define PP_EPS_ON_HYPERPLANE		(PP_EPS_PROJECTION*1000)	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7				// Length of Objective Vector
-#endif
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 3125.00000000000045474735
+// Maximal objective value:  3125
+// Relative error = 1.46e-16
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
 /*============================== Klee-Minty6 LP problem ========================*
@@ -54,12 +44,12 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 15625
 //------------------------------------------------------------------------------
-#ifdef PP_GRADIENT
-#define PP_EPS_ZERO					1E-10				// Accuracy for comparison with zero
-#define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)	// Accuracy of belonging to hyperplane
-#define PP_EPS_ON_HYPERPLANE		(PP_EPS_ZERO*10000)	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7				// Length of Objective Vector
-#endif
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 15625
+// Maximal objective value:  15625
+// Relative error = 0
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
 /*============================== Klee-Minty7 LP problem ========================*
@@ -69,12 +59,12 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 78125
 //------------------------------------------------------------------------------
-#ifdef PP_GRADIENT
-#define PP_EPS_ZERO					1E-11				// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		(PP_EPS_ZERO*10000)	// Accuracy of belonging to hyperplane
-#define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7				// Length of Objective Vector
-#endif
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 78125
+// Maximal objective value:  78125
+// Relative error = 0
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
 /*============================== Klee-Minty8 LP problem ========================*
@@ -84,27 +74,57 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 390625
 //------------------------------------------------------------------------------
-#ifdef PP_GRADIENT
-#define PP_EPS_ZERO					1E-11				// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1e-06				// Accuracy of belonging to hyperplane
-#define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7				// Length of Objective Vector
-#endif
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 390624.999999999941792339
+// Maximal objective value:  390625
+// Relative error = 1.49e-16
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== Klee-Minty9 LP problem ========================*/
+/*============================== Klee-Minty9 LP problem ========================*
 #define PP_PROBLEM_NAME	"Klee-Minty9"
 #define PP_D 9			// Space dimension
 #define PP_M PP_D		// Number of equations (number of rows in *.mtx)
 #define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 1953125
 //------------------------------------------------------------------------------
-#ifdef PP_GRADIENT
-#define PP_EPS_ZERO					1E-11				// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1e-06				// Accuracy of belonging to hyperplane
-#define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7				// Length of Objective Vector
-#endif
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 1953125
+// Maximal objective value:  1953125
+// Relative error = 0
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== Klee-Minty10 LP problem ========================*
+#define PP_PROBLEM_NAME	"Klee-Minty10"
+#define PP_D 10			// Space dimension
+#define PP_M PP_D		// Number of equations (number of rows in *.mtx)
+#define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 9765625
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 9765625
+// Maximal objective value:  9765625
+// Relative error = 0
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== Klee-Minty20 LP problem ========================*/
+#define PP_PROBLEM_NAME	"Klee-Minty20"
+#define PP_D 20			// Space dimension
+#define PP_M PP_D		// Number of equations (number of rows in *.mtx)
+#define PP_N (2*PP_D)	// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 95367431640625
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 95367431640625
+// Maximal objective value:  95367431640625
+// Relative error = 0
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
 /*==============================================================================*/

@@ -23,6 +23,7 @@ struct PT_bsf_reduceElem_T {	// Type of reduce-list elements for Job 0 (default)
 	int i_star;
 	int j_star;
 	double objF_nex;	// F(v_nex)
+	double objF_grd;	// Value of objective function after one unit movement
 };
 
 struct PT_bsf_reduceElem_T_1 {	// Type of reduce-list elements for Job 1
