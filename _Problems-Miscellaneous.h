@@ -10,14 +10,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 ================================================================================*/
 #pragma once
 
-//=========================== problem Parameters ===============================
-#define PP_SCALE_FACTOR					1				// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-#define PP_MAX_PSEUDOPROJECTING_ITER	100000000		// Maximum acceptable number of iterations in Pseudoprojection on flat
-//------------------------------ ifdef PP_DEBUG --------------------------------
-#define PP_PROJECTION_COUNT				100000				// Each PP_PROJECTION_COUNT iteration to be outputted inside Flat_MaxProjection(*)
-//==============================================================================
-
-/*============================== nguyen5 LP problem ============================*
+/*============================== nguyen5 LP problem ============================*/
 #define PP_PROBLEM_NAME	"nguyen5"
 #define PP_MPS_FORMAT
 #define PP_M 4		// Number of constrains
@@ -35,7 +28,27 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 2.9540375e-17
 //------------------------------------------------------------------------------
 
-/*============================== wiki LP problem ============================*/
+/*============================== hamck26e LP problem ===========================*
+#define PP_PROBLEM_NAME	"hamck26e"
+#define PP_MPS_FORMAT
+#define PP_M 4		// Number of constrains
+#define PP_N 4		// Number of variables
+#define PP_MAX_OBJ_VALUE 3.25
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_GRADIENT 
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 2
+// Computed objective value: 3.2499999999999866773237
+// Maximal objective value:  3.25
+// Relative error = 4.1e-15
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== wiki LP problem ===============================*
 #define PP_PROBLEM_NAME	"wiki"
 #define PP_MPS_FORMAT
 #define PP_M 2		// Number of constrains
