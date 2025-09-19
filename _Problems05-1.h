@@ -12,18 +12,11 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #pragma once
 
 //=========================== Problem Parameters ===============================
-// PP_OBJECTIVE_VECTOR_LENGTH - direct dependence on dimension PD_n.
-// P_EPS_ZERO - inverse dependence on PP_OBJECTIVE_VECTOR_LENGTH.
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
 #define PP_M						6		// Number of equations (number of rows in *.mtx)
 #define PP_N						11		// Number of variables (number of cols in *.mtx)
-//------------------------------ ifdef PP_DEBUG --------------------------------
-#define PP_PROJECTION_COUNT				100000				// Each PP_PROJECTION_COUNT iteration to be outputted inside Flat_MaxProjection(*)
-
 //------------------------------------------------------------------------------
-#define PP_EPS_RELATIVE_ERROR		1E-3			// Used if defined PP_CHECK_MAX_OBJ_VALUE 
+#define PP_EPS_RELATIVE_ERROR		1E-3	// Used if defined PP_CHECK_MAX_OBJ_VALUE 
+//------------------------------------------------------------------------------
 
 /*============================== rnd5-0 LP problem =============================*
 #define PP_PROBLEM_NAME	"rnd5-0"

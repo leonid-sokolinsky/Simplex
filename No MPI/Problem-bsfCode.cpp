@@ -60,7 +60,7 @@ void PC_bsf_Init(bool* success) {
 	#endif // PP_MATRIX_OUTPUT
 
 	#ifdef PP_NORMALIZATION
-	Matrix_Normalization();
+	Matrix_Normalize();
 	#endif // PP_NORMALIZATION
 
 	List_equations(PD_isEquation, PD_basis_v, &PD_meq);
@@ -83,7 +83,7 @@ void PC_bsf_Init(bool* success) {
 		}
 	}
 
-	PD_supportSubspaceDim = PD_n - PD_meq_basis;	// Dimension of the subspace of intersection of support hyperplanes
+	PD_subspaceDim = PD_n - PD_meq_basis;	// Dimension of the subspace of intersection of support hyperplanes
 
 	List_inequalities(PD_isEquation, PD_neHyperplanes, &PD_mne);
 
@@ -249,12 +249,11 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 	cout << "Problem name: " << PD_problemName << endl;
 
 	#ifdef PP_MPS_FORMAT
-	cout << "Input format: MPS" << endl;
-	cout << "m = " << PD_m << " n = " << PD_n << endl;
+	cout << "MPS input format: " << "m = " << PD_m << " n = " << PD_n << endl;
 	#else
-	cout << "Input format: MTX (with elimination of free variables)" << endl;
-	cout << "Before elimination: m =\t" << PP_M << "\tn = " << PP_N << endl;
-	cout << "After elimination:  m =\t" << PD_m << "\tn = " << PD_n << endl;
+	cout << "MTX input format (with elimination of free variables)" << endl;
+	cout << "\tbefore elimination: m =\t" << PP_M << "\tn = " << PP_N << endl;
+	cout << "\tafter elimination:  m =\t" << PD_m << "\tn = " << PD_n << endl;
 	#endif // PP_MPS_FORMAT
 
 	#ifdef PP_BASIC_VECTORS_ONLY	
@@ -265,7 +264,7 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 	#endif // PP_BASIC_VECTORS_ONLY
 
 	if (PD_meq_basis > 0)
-		cout << "Subspace dimension: " << PD_supportSubspaceDim << endl;
+		cout << "Subspace dimension: " << PD_subspaceDim << endl;
 
 	/**
 	#ifdef PP_BSF_FRAGMENTED_MAP_LIST
@@ -277,11 +276,19 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 
 	cout << endl;
 
+	#ifdef PP_GRADIENT
+	cout << "Strategy: The best gradient" << endl;
+	#else
+	cout << "Strategy: The best vertex" << endl;
+	#endif // PP_GRADIENT
+
 	#ifdef PP_NORMALIZATION
 	cout << "Matrix normalization: On" << endl;
 	#else 
 	cout << "Matrix normalization: Off" << endl;
 	#endif // PP_NORMALIZATION
+
+	cout << endl;
 
 	cout << "PP_EPS_ZERO\t\t\t" << PP_EPS_ZERO << endl;
 	cout << "PP_EPS_ON_HYPERPLANE\t\t" << PP_EPS_ON_HYPERPLANE << endl;
@@ -292,8 +299,10 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 	#endif // PP_MATRIX_OUTPUT
 
 	cout << endl;
-	cout << "ObjF = " << setprecision(PP_SETW) << ObjF(PD_v) << setprecision(PP_SETW / 2) << endl;
+	cout << "Starting ObjF = " << setprecision(PP_SETW) << ObjF(PD_v) << setprecision(PP_SETW / 2) << endl;
+	#ifdef PP_DEBUG
 	cout << "Number of inequality hyperplanes including v:\t" << Number_IncludingNeHyperplanes(PD_v, PP_EPS_ON_HYPERPLANE) << endl;
+	#endif // PP_DEBUG
 
 	/*DEBUG PC_bsf_ParametersOutput**
 	#ifdef PP_DEBUG
@@ -824,7 +833,7 @@ namespace SF {
 		}
 	}
 
-	static void Matrix_Normalization(void) {
+	static void Matrix_Normalize(void) {
 		for (int i = 0; i < _m; i++) {
 			Vector_DivideEquals(_A[i], _norm_a[i]);
 			_b[i] /= _norm_a[i];
@@ -2920,25 +2929,24 @@ namespace PF {
 
 	static inline void _Make_AI_v(double eps_zero, bool* success) {
 		double factor;
-		int n = _n;
 
 		*success = true;
 
-		for (int i = 0; i < n; i++)   // Make a copy of original matrix
-			for (int j = 0; j < n; j++) 
+		for (int i = 0; i < _n; i++)   // Make a copy of original matrix
+			for (int j = 0; j < _n; j++) 
 					_D[i][j] = PD_A_v[i][j];
 
-		for (int i = 0; i < n; i++) { // Make identity matrix 
-			for (int j = 0; j < n; j++) 
+		for (int i = 0; i < _n; i++) { // Make identity matrix 
+			for (int j = 0; j < _n; j++) 
 				PD_AI_v[i][j] = 0;
 			PD_AI_v[i][i] = 1;
 		}
 
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < _n; j++) {
 
 			if (fabs(_D[j][j]) <= eps_zero) { // Search for a non-zero below
 				int i_ne_0 = -1;
-				for (int i = j + 1; i < n; i++) {
+				for (int i = j + 1; i < _n; i++) {
 					if (i_ne_0 == -1) {
 						if (fabs(_D[i][j]) > eps_zero)
 							i_ne_0 = i;
@@ -2950,7 +2958,7 @@ namespace PF {
 				}
 
 				if (i_ne_0 > -1) { // Permute the rows
-					for (int l = 0; l < n; l++) {
+					for (int l = 0; l < _n; l++) {
 						double buf;
 						buf = _D[j][l];
 						_D[j][l] = _D[i_ne_0][l];
@@ -2962,7 +2970,7 @@ namespace PF {
 				}
 				else {
 					int j_ne_0 = -1; // Search for a non-zero on the right
-					for (int lj = j + 1; lj < n; lj++) {
+					for (int lj = j + 1; lj < _n; lj++) {
 						if (j_ne_0 == -1) {
 							if (fabs(_D[j][lj]) > eps_zero)
 								j_ne_0 = lj;
@@ -2976,10 +2984,10 @@ namespace PF {
 					if (j_ne_0 == -1) {
 						/* Debug _Make_AI_v**
 						cout << "Row " << j << endl;
-						for (int jj = j + 1; jj < n; jj++)
+						for (int jj = j + 1; jj < _n; jj++)
 							cout << _D[j][jj] << "\t";
 						cout <<"\nColumn " << j << endl;
-						for (int ii = j + 1; ii < n; ii++)
+						for (int ii = j + 1; ii < _n; ii++)
 							cout << _D[ii][j] << "\t";
 						cout << endl;
 						/* End Debug _Make_AI_v*/
@@ -2987,7 +2995,7 @@ namespace PF {
 						return;
 					}
 
-					for (int i = 0; i < n; i++) { // Permute the columns
+					for (int i = 0; i < _n; i++) { // Permute the columns
 						double buf;
 						buf = _D[i][j];
 						_D[i][j] = _D[i][j_ne_0];
@@ -3000,24 +3008,24 @@ namespace PF {
 			}
 
 			factor = _D[j][j];
-			for (int l = 0; l < n; l++) { // make 1
+			for (int l = 0; l < _n; l++) { // make 1
 				_D[j][l] = _D[j][l] / factor;
 				PD_AI_v[j][l] = PD_AI_v[j][l] / factor;
 			}
 
-			for (int i = j + 1; i < n; i++) {
+			for (int i = j + 1; i < _n; i++) {
 				factor = _D[i][j];
-				for (int l = 0; l < n; l++) {
+				for (int l = 0; l < _n; l++) {
 					_D[i][l] = _D[i][l] - _D[j][l] * factor;
 					PD_AI_v[i][l] = PD_AI_v[i][l] - PD_AI_v[j][l] * factor;
 				}
 			}
 		}
 
-		for (int i = n - 1; i > 0; i--)
+		for (int i = _n - 1; i > 0; i--)
 			for (int k = i - 1; k >= 0; k--) {
 				factor = _D[k][i];
-				for (int j = 0; j < n; j++) {
+				for (int j = 0; j < _n; j++) {
 					_D[k][j] = _D[k][j] - _D[i][j] * factor;
 					PD_AI_v[k][j] = PD_AI_v[k][j] - PD_AI_v[i][j] * factor;
 				}

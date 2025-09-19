@@ -36,7 +36,7 @@ namespace SF {
 	void	MakeNeHyperplane_x(PT_vector_T x, int* neHyperplanes_all, int mneh_all, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
 	void	Matrix_Basis(int* list_i, int* mi, double eps_zero);
 	void	Matrix_CopyToD(int* list_i, int count);
-	void	Matrix_Normalization(void);
+	void	Matrix_Normalize(void);
 	void	Matrix_Rank(int* list_i, int mi, double eps_zero, int* rank);
 	bool	MPS___Load_Problem();
 	bool	MPS__MakeProblem(PT_MPS_row_T* row, int n_row, PT_MPS_column_T* column, int n_col, double* loBound, PT_MPS_upBound_T* upBounds, int n_up, PT_MPS_fxVariable_T* fxVariable, int n_fx);

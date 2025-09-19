@@ -10,7 +10,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 ================================================================================*/
 #pragma once
 
-/*============================== nguyen5 LP problem ============================*/
+/*============================== nguyen5 LP problem ============================*
 #define PP_PROBLEM_NAME	"nguyen5"
 #define PP_MPS_FORMAT
 #define PP_M 4		// Number of constrains
@@ -36,15 +36,35 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 3.25
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_GRADIENT 
 //------------------------------------------------------------------------------
 // Elapsed time: 0
-// Number of iterations: 2
-// Computed objective value: 3.2499999999999866773237
+// Number of iterations: 3
+// Computed objective value: 3.24999999999999911182158
 // Maximal objective value:  3.25
-// Relative error = 4.1e-15
+// Relative error = 2.73e-16
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== hamck26s LP problem ============================*/
+#define PP_PROBLEM_NAME	"hamck26s"
+#define PP_MPS_FORMAT
+#define PP_M 5		// Number of constrains
+#define PP_N 4		// Number of variables
+#define PP_MAX_OBJ_VALUE 1.25
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+//#define PP_GRADIENT 
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 3
+// Computed objective value: 1.25
+// Maximal objective value:  1.25
+// Relative error = 0
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
