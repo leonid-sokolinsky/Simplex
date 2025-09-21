@@ -29,6 +29,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 
 /*============================== hamck26e LP problem ===========================*
+// https://doi.org/10.1007/s10107-003-0488-1
 #define PP_PROBLEM_NAME	"hamck26e"
 #define PP_MPS_FORMAT
 #define PP_M 4		// Number of constrains
@@ -48,7 +49,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== hamck26s LP problem ============================*/
+/*============================== hamck26s LP problem ============================*
+// https://doi.org/10.1007/s10107-003-0488-1
 #define PP_PROBLEM_NAME	"hamck26s"
 #define PP_MPS_FORMAT
 #define PP_M 5		// Number of constrains
@@ -151,7 +153,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== pyramid LP problem =========================*
+/*============================== pyramid LP problem =========================*/
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"pyramid"
 #define PP_M 3		// Number of constrains
@@ -166,10 +168,11 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 // Elapsed time: 0
-// Number of iterations: 3
-// Computed objective value: 50000
-// Maximal objective value:  50000
+// Number of iterations: 1
+// Computed objective value: 60000
+// Maximal objective value:  60000
 // Relative error = 0
+// Distance to polytope: 0
 //------------------------------------------------------------------------------
 
 /*============================== featheredCube LP problem ======================*
