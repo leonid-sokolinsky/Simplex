@@ -39,10 +39,10 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
-#define PP_GRADIENT 
+//#define PP_GRADIENT 
 //------------------------------------------------------------------------------
 // Elapsed time: 0
-// Number of iterations: 3
+// Number of iterations: 4
 // Computed objective value: 3.24999999999999911182158
 // Maximal objective value:  3.25
 // Relative error = 2.73e-16
@@ -60,7 +60,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
-//#define PP_GRADIENT 
+#define PP_GRADIENT 
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 3
@@ -93,9 +93,9 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== simpleCube LP problem =========================*
+/*============================== cube LP problem =========================*
 #define PP_MPS_FORMAT
-#define PP_PROBLEM_NAME	"simpleCube"
+#define PP_PROBLEM_NAME	"cube"
 #ifdef PP_MPS_FORMAT
 #define PP_M 3		// Number of constrains
 #define PP_N 3		// Number of variables
@@ -153,7 +153,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== pyramid LP problem =========================*/
+/*============================== pyramid LP problem ============================*
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"pyramid"
 #define PP_M 3		// Number of constrains
@@ -164,13 +164,35 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // p = Polyhedron(ieqs = [[0,1,0,0],[0,0,1,0,],[0,-1,0,1],[0,0,-1,1],[200,0,0,-1,]])
 // p.plot()
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 1
 // Computed objective value: 60000
 // Maximal objective value:  60000
+// Relative error = 0
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== pyramidInPyramid LP problem ===================*/
+#define PP_MPS_FORMAT
+#define PP_PROBLEM_NAME	"pyramidInPyramid"
+#define PP_M 5		// Number of constrains
+#define PP_N 3		// Number of variables
+#define PP_MAX_OBJ_VALUE 		42000
+//------------------------------------------------------------------------------
+// https://sagecell.sagemath.org/
+// p = Polyhedron(ieqs = [[0,1,0,0],[0,0,1,0,],[0,-1,0,1],[0,0,-1,1],[0,-1,0,2],[0,0,-1,2],[200,0,0,-1,]])
+// p.plot()
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 1
+// Computed objective value: 42000
+// Maximal objective value:  42000
 // Relative error = 0
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
