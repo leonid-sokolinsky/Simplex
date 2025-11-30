@@ -18,6 +18,16 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_MAX_PSEUDOPROJECTING_ITER	100000000		// Maximum acceptable number of iterations in Pseudoprojection on flat
 
+/*============================== 25FV47 LP problem =============================*
+#define PP_PROBLEM_NAME		"25FV47"
+#define PP_M 820	// Number of constraints in mps-file
+#define PP_N 1571	// Number of variables in mps-file
+#define PP_MAX_OBJ_VALUE 		-5501.8458882867447945812325883916
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11		// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-8		// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+
 /*============================== adlittle LP problem ===========================*
 // Number of equations: 15
 // Subspace dimension: 82
@@ -56,6 +66,16 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 1.2893561e-11
 //------------------------------------------------------------------------------
 
+/*============================== agg LP problem ================================*/
+#define PP_PROBLEM_NAME		"agg"
+#define PP_M 488	// Number of constraints in mps-file
+#define PP_N 163	// Number of variables in mps-file
+#define PP_MAX_OBJ_VALUE 		35991767.286576506712640824319636
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-10		// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-4		// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+
 /*============================== beaconfd LP problem ===========================*
 // Number of equations: 140
 // Subspace dimension: 122
@@ -66,6 +86,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO						1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE			1E-7	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 16
@@ -84,7 +106,9 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 30.812149845828220173774356124984	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-9	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-9		// Accuracy of belonging to hyperplane
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 321
@@ -104,13 +128,15 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+5	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
-// Elapsed time: 273
-// Number of iterations: 305
-// Computed objective value: 9146.37811542919916973915
+// Elapsed time: 9
+// Number of iterations: 15
+// Computed objective value: 9146.37811473882720747497
 // Maximal objective value:  9146.37809242092771455646
-// Relative error = 2.52e-09
-// Distance to polytope: 3.8550375e-08
+// Relative error = 2.44e-09
+// Distance to polytope: 2.1285883e-09
 //------------------------------------------------------------------------------
 
 /*============================== grow7 LP problem ============================*
@@ -123,6 +149,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO						1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE			1E-5	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
 // Elapsed time: 1
 // Number of iterations: 11
@@ -139,7 +167,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 142	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 896644.82186304572966200464196045	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ZERO					1E-8	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 // Elapsed time: 0
@@ -182,6 +210,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_BASIC_VECTORS_ONLY
 //------------------------------------------------------------------------------
+// cycling!
 // Elapsed time: 0
 // Number of iterations: 14
 // Computed objective value: 266.616000000034091499401
@@ -200,6 +229,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 32
@@ -276,6 +307,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+2	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 30
@@ -285,7 +318,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 3.8679237e-08
 //------------------------------------------------------------------------------
 
-/*============================== stocfor1 LP problem ============================*/
+/*============================== stocfor1 LP problem ============================*
 // Number of equations: 63
 // Subspace dimension: 48
 #define PP_PROBLEM_NAME		"stocfor1"	

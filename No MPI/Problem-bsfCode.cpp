@@ -7,6 +7,10 @@ Prefix:	PC_bsf	- BSF Predefined Problem Functions
 		PF		- Private Functions
 Author: Leonid B. Sokolinsky
 This source code has been produced with using BSF-skeleton
+------------------------------------------------------------------------------
+Method description: Schrijver A. Theory of Linear and Integer Programming.
+Chichester, New York, Brisbane, Toronto, Singapore: Wiley and Sons, 1998.
+P. 129-130.
 ==============================================================================*/
 #include "Problem-Data.h"			// Problem Types 
 #include "Problem-Forwards.h"		// Problem Function Forwards
@@ -76,7 +80,7 @@ void PC_bsf_Init(bool* success) {
 			List_i_Basis(PD_basis_v, &PD_meq_basis, PP_EPS_ZERO);
 			#else  // !PP_BASIC_VECTORS_ONLY
 			if (BSF_sv_mpiRank == BSF_sv_mpiMaster)
-				cout << "Number of equations = " << PD_meq_basis << " < rank = " << rankEq << ".\nYou should define the option PP_BASIC_VECTORS_ONLY." << endl;
+				cout << "Number of equations = " << PD_meq_basis << " > rank = " << rankEq << ".\nYou should define the option PP_BASIC_VECTORS_ONLY." << endl;
 			*success = false;
 			return;
 			#endif // PP_BASIC_VECTORS_ONLY
@@ -276,8 +280,14 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 
 	cout << endl;
 
+	#ifdef PP_OPT_MIN
+	cout << "Optimization: Minimum" << endl;
+	#else
+	cout << "Optimization: Maximum" << endl;
+	#endif // PP_OPT_MIN
+
 	#ifdef PP_GRADIENT
-	cout << "Strategy: The best gradient" << endl;
+	cout << "Strategy: The steepest edge" << endl;
 	#else
 	cout << "Strategy: The best vertex" << endl;
 	#endif // PP_GRADIENT
@@ -301,7 +311,7 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 	cout << endl;
 	cout << "Starting ObjF = " << setprecision(PP_SETW) << ObjF(PD_v) << setprecision(PP_SETW / 2) << endl;
 	#ifdef PP_DEBUG
-	cout << "Number of inequality hyperplanes including v:\t" << Number_IncludingNeHyperplanes(PD_v, PP_EPS_ON_HYPERPLANE) << endl;
+	cout << "Number of inequality hyperplanes containing v:\t" << Number_IncludingNeHyperplanes(PD_v, PP_EPS_ON_HYPERPLANE) << endl;
 	#endif // PP_DEBUG
 
 	/*DEBUG PC_bsf_ParametersOutput**
@@ -361,6 +371,14 @@ void PC_bsf_ProcessResults(PT_bsf_reduceElem_T* reduceResult, int reduceCounter,
 
 	PD_iterNo++;
 
+	#ifdef PP_SAVE_ITER_RESULT
+	char buf[10];
+	sprintf(buf, "%d", (int)(ObjF(PD_v) * PP_SCALE_FACTOR));
+	string postfix = "_v(" + string(buf) + ").mtx";
+	if (MTX_SavePoint(PD_v, postfix))
+		cout << "Current approximation is saved into file *_v(*).mtx" << endl;
+	#endif // PP_SAVE_ITER_RESULT
+
 	for (int j = 0; j < PD_n; j++) // Replacing basis
 		if (PD_basis_v[j] == reduceResult->i_star) {
 			PD_basis_v[j] = reduceResult->j_star;
@@ -372,7 +390,7 @@ void PC_bsf_ProcessResults(PT_bsf_reduceElem_T* reduceResult, int reduceCounter,
 	Vector_i_Copy(PD_basis_v, parameter->basis_v);
 
 	cout << "_________________________________________________ " << PD_iterNo << " _____________________________________________________" << endl;
-	cout << "ObjF = " << ObjF(PD_v) << endl;
+	cout << "ObjF = " << setprecision(18) << ObjF(PD_v) << endl << setprecision(PP_SETW / 2);
 	#ifdef PP_MATRIX_OUTPUT
 	cout << "v =\t\t"; Vector_Print(PD_v); cout << endl;
 	#endif // PP_MATRIX_OUTPUT
@@ -878,7 +896,7 @@ namespace SF {
 						if (fabs(_D[i][j]) > eps_zero)
 							i_ne_0 = i;
 						else
-							_D[i][j];
+							_D[i][j] = 0;
 					}
 					else {
 						if (fabs(_D[i][j]) > fabs(_D[i_ne_0][j]))

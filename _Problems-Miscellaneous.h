@@ -133,7 +133,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Relative error = 0
 //------------------------------------------------------------------------------
 
-/*============================== square4D LP problem =========================*
+/*============================== square4D LP problem =========================*/
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"square4D"
 #define PP_M 7		// Number of constrains
@@ -143,7 +143,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ZERO					1E-11					// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
-#define PP_BASIC_VECTORS_ONLY
+//#define PP_BASIC_VECTORS_ONLY
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 2
@@ -175,7 +175,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== pyramidInPyramid LP problem ===================*/
+/*============================== pyramidInPyramid LP problem ===================*
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"pyramidInPyramid"
 #define PP_M 5		// Number of constrains
