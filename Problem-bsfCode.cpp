@@ -771,6 +771,8 @@ namespace SF {
 
 		if (*mi > rank)
 			for (int check_count = 0; check_count < meq_total; check_count++) { // always check the last
+				if (*mi == rank)
+					return;
 				Matrix_Rank(list_i, (*mi) - 1, PP_EPS_ZERO, &probeRank);
 				if (probeRank == rank)
 					(*mi)--;
@@ -1203,12 +1205,20 @@ namespace SF {
 			return false;
 		}
 
-		for (int j = 0; j < _n; j++) { // Adding lower bounds
-			_A[_m + j][j] = -1;
-			if (loBound[j] > 0)
-				_b[_m + j] = -loBound[j];
+		for (int j = 0; j < _n; j++) { // Adding x >= 0
+			_A[j + _m][j] = -1;
+			_b[j + _m] = 0;
 		}
-		_m += _n;
+		_m += _n; assert(_m <= PP_MM);
+
+
+		for (int j = 0; j < _n; j++) { // Adding lower bounds
+			if (loBound[j] > 0) {
+				_A[_m][j] = -1;
+				_b[_m] = -loBound[j];
+				_m++; assert(_m <= PP_MM);
+			}
+		}
 
 		for (int j_up = 0; j_up < n_up; j_up++) { // Adding upper bounds
 			_A[_m][upBound[j_up].varIndex] = 1;
@@ -1928,16 +1938,24 @@ namespace SF {
 
 		MTX_RemoveFreeVariables();
 
-		for (int i = 0; i < _n; i++) { // Adding lower bound conditions
+		for (int i = 0; i < _n; i++) { // Adding x >= 0
 			for (int j = 0; j < _n; j++)
 				_A[i + _m][j] = 0;
 			_A[i + _m][i] = -1;
-			if (PD_lo[i] == 0)
-				_b[i + _m] = 0;
-			else
-				_b[i + _m] = -PD_lo[i];
+			_b[i + _m] = 0;
 		}
 		_m += _n; assert(_m <= PP_MM);
+
+		for (int i = 0; i < _n; i++) { // Adding lower bound conditions
+				assert(PD_lo[i] >= 0);
+			if (PD_lo[i] > 0) {
+				for (int j = 0; j < _n; j++)
+					_A[_m][j] = 0;
+				_A[_m][i] = -1;
+				_b[_m] = -PD_lo[i];
+				_m++; assert(_m <= PP_MM);
+			}
+		}
 
 		for (int i = 0; i < _n; i++) { // Adding higher bound conditions
 			if (PD_hi[i] != PP_INFINITY) {
@@ -2793,6 +2811,14 @@ namespace SF {
 			toVector[j] = fromVector[j];
 	}
 
+	static inline void Vector_CopyNegative(PT_vector_T fromVector, PT_vector_T toVector) { // toPoint = fromPoint
+		for (int j = 0; j < _n; j++)
+			if (fromVector[j] != 0)
+				toVector[j] = -fromVector[j];
+			else
+				toVector[j] = 0;
+	}
+
 	static inline void Vector_DivideByNumber(PT_vector_T x, double r, PT_vector_T y) {  // y = x/r
 		for (int j = 0; j < _n; j++)
 			y[j] = x[j] / r;
@@ -2861,7 +2887,15 @@ namespace SF {
 			x[j] *= r;
 	}
 
-	static inline double Vector_Norm(PT_vector_T x) {
+	static inline void Vector_Negative(PT_vector_T x) {  // x = -x
+		for (int j = 0; j < _n; j++)
+			if (x[j] != 0)
+				x[j] = -x[j];
+			else
+				x[j] = 0;
+	}
+
+	static inline double Vector_Norm(PT_vector_T x) { // <- ||x||
 		double norm_x = sqrt(Vector_NormSquare(x));
 		return norm_x;
 	}

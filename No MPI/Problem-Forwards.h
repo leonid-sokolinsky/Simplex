@@ -11,7 +11,6 @@ This source code has been produced with using BSF-skeleton
 namespace PF {
 	void	MakeBasis_v(PT_vector_T v, PT_vector_i_T basis_v);
 	bool	OptimumIsFound(double eps_zero);
-	bool	PointIsVertex(PT_vector_T x, double eps_on_hyperplane);
 	void	PreparationForIteration(PT_vector_i_T basis_v);
 }
 //====================== Shared Functions ======================================
@@ -27,8 +26,8 @@ namespace SF {
 	void	Flat_BipProjection(int* flatHyperplanes, int m_flat, PT_vector_T v, double eps_projection, int maxProjectingIter, PT_vector_T w, int* exitCode);
 	void	Flat_MaxProjection(int* flatHyperplanes, int m_flat, PT_vector_T v, double eps_projection, int maxProjectingIter, PT_vector_T w, int* exitCode);
 	void	JumpingOnPolytope(PT_vector_T startPoint, PT_vector_T direcionVector, PT_vector_T finishPoint, double eps_jump_vector_len, double eps_on_hyperplane, double eps_zero, bool* parallelHPlanes, int* exitCode);
-	void	List_i_Basis(int* list_i, int* mi, double eps_zero);
 	void	List_equations(bool* isEquation, int* equationsList, int* equationCount);
+	void	List_i_Basis(int* list_i, int* mi, double eps_zero);
 	void	List_inequalities(bool* isEquation, int* inequalitiesList, int* inequalitiesCount);
 	void	List_neHyperplanes_x(PT_vector_T x, int* neHyperplanes, int mneh, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
 	void	MakeColumnOfNorms(PT_matrix_T A, PT_column_T norm_a);
@@ -99,6 +98,7 @@ namespace SF {
 	int		Vector_AbsMax_j(PT_vector_T x);
 	void	Vector_Addition(PT_vector_T x, PT_vector_T y, PT_vector_T z);
 	void	Vector_Copy(PT_vector_T x, PT_vector_T y);
+	void	Vector_CopyNegative(PT_vector_T x, PT_vector_T y);
 	void	Vector_DivideByNumber(PT_vector_T x, double r, PT_vector_T y);
 	void	Vector_DivideEquals(PT_vector_T x, double r);
 	bool	Vector_Equal(PT_vector_T x, PT_vector_T y);
@@ -111,6 +111,7 @@ namespace SF {
 	void	Vector_MinusEquals(PT_vector_T equalPoint, PT_vector_T minusVector);
 	void	Vector_MultiplyByNumber(PT_vector_T x, double r, PT_vector_T y);
 	void	Vector_MultiplyEquals(PT_vector_T x, double r);
+	void	Vector_Negative(PT_vector_T x);
 	double	Vector_Norm(PT_vector_T x);
 	double	Vector_NormSquare(PT_vector_T x);
 	void	Vector_PlusEquals(PT_vector_T equalVector, PT_vector_T plusVector);

@@ -47,7 +47,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 5.8608178e-09
 //------------------------------------------------------------------------------
 
-/*============================== afiro LP problem ==============================*
+/*============================== afiro LP problem ==============================*/
 // Number of equations : 8
 // Subspace dimension : 24
 #define PP_PROBLEM_NAME	"afiro"
@@ -66,7 +66,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 1.2893561e-11
 //------------------------------------------------------------------------------
 
-/*============================== agg LP problem ================================*/
+/*============================== agg LP problem ================================*
 #define PP_PROBLEM_NAME		"agg"
 #define PP_M 488	// Number of constraints in mps-file
 #define PP_N 163	// Number of variables in mps-file
