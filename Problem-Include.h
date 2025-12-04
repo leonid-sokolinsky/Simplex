@@ -7,7 +7,7 @@ This source code has been produced with using BSF-skeleton
 ==============================================================================*/
 #pragma once
 #define _CRT_RAND_S
-
+//#define NDEBUG
 #include <cassert>
 #include <iomanip>
 #include <iostream>

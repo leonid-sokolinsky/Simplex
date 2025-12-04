@@ -28,7 +28,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ON_HYPERPLANE		1E-8		// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 
-/*============================== adlittle LP problem ===========================*
+/*============================== adlittle LP problem ===========================*/
 // Number of equations: 15
 // Subspace dimension: 82
 #define PP_PROBLEM_NAME		"adlittle"
@@ -47,7 +47,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 5.8608178e-09
 //------------------------------------------------------------------------------
 
-/*============================== afiro LP problem ==============================*/
+/*============================== afiro LP problem ==============================*
 // Number of equations : 8
 // Subspace dimension : 24
 #define PP_PROBLEM_NAME	"afiro"
@@ -67,13 +67,51 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 
 /*============================== agg LP problem ================================*
+// Number of equations : 36
+// Subspace dimension : 127
 #define PP_PROBLEM_NAME		"agg"
 #define PP_M 488	// Number of constraints in mps-file
 #define PP_N 163	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 		35991767.286576506712640824319636
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-10		// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-4		// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//#define PP_GRADIENT
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 46
+// Computed objective value: 35651927.286576472222805
+// Maximal objective value:  35991767.286576509475708
+// Relative error = 0.00944
+// Distance to polytope: 1.2025106e-10
+//------------------------------------------------------------------------------
+
+/*============================== agg2 LP problem ===============================*
+// Number of equations : 60
+// Subspace dimension : 242
+#define PP_PROBLEM_NAME		"agg2"
+#define PP_M 516	// Number of constraints in mps-file
+#define PP_N 302	// Number of variables in mps-file
+#define PP_MAX_OBJ_VALUE 		20239252.355977109024317661926133
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-9	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//#define PP_GRADIENT
+//------------------------------------------------------------------------------
+// Elapsed time: 4
+// Number of iterations: 132
+// Computed objective value: 17444364.3085763119161129
+// Maximal objective value:  20239252.3559771105647087
+// Relative error = 0.138
+// Distance to polytope: 7.77714e-11
 //------------------------------------------------------------------------------
 
 /*============================== beaconfd LP problem ===========================*
@@ -84,17 +122,17 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 262	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE -33592.4858072
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO						1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE			1E-7	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		8E-2	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
 #define PP_SCALE_FACTOR				1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //------------------------------------------------------------------------------
 // Elapsed time: 0
-// Number of iterations: 16
-// Computed objective value: -33592.4858072347997222096
+// Number of iterations: 29
+// Computed objective value: -33592.1310571940048248507
 // Maximal objective value:  -33592.4858071999988169409
-// Relative error = 1.04e-12
-// Distance to polytope: 2.7633211e-09
+// Relative error = 1.06e-05
+// Distance to polytope: 0.074991564
 //------------------------------------------------------------------------------
 
 /*============================== blend LP problem ==============================*
@@ -116,6 +154,27 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Maximal objective value:  30.8121498458282196963864
 // Relative error = 1.22e-14
 // Distance to polytope: 5.0086275e-14
+//------------------------------------------------------------------------------
+
+/*============================== e226 LP problem ==============================*
+// Number of equations: 140
+// Subspace dimension: 122
+#define PP_PROBLEM_NAME		"e226"
+#define PP_M 223	// Number of constraints in mps-file
+#define PP_N 282	// Number of variables in mps-file
+#define PP_MAX_OBJ_VALUE 18.751929066370549102605687681285
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//------------------------------------------------------------------------------
+// Elapsed time: 8
+// Number of iterations: 415
+// Computed objective value: 18.8491867679356204234864
+// Maximal objective value:  18.7519290663705504584868
+// Relative error = 0.00519
+// Distance to polytope: 0.93998384
 //------------------------------------------------------------------------------
 
 /*============================== fit1d LP problem ==============================*
@@ -160,6 +219,27 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 7.2316328e-06
 //------------------------------------------------------------------------------
 
+/*============================== grow15 LP problem ============================*
+// Number of equations: 140
+// Subspace dimension: 161
+#define PP_PROBLEM_NAME		"grow15"
+#define PP_M 300	// Number of equations (after conversion to standard form)
+#define PP_N 645	// Number of variables in mps-file (after conversion to standard form)
+#define PP_MAX_OBJ_VALUE 106870941.29357533671604040930313	// Exact maximum value of objective function
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR				1E+0	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//------------------------------------------------------------------------------
+// Elapsed time: 10
+// Number of iterations: 71
+// Computed objective value: 129750000
+// Maximal objective value:  106870941.293575331568718
+// Relative error = 0.214
+// Distance to polytope: 593405.04
+//------------------------------------------------------------------------------
+
 /*============================== israel LP problem =========================*
 // Number of equations: 0
 #define PP_PROBLEM_NAME		"israel"
@@ -195,6 +275,25 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Maximal objective value:  1749.90012990620562050026
 // Relative error = 7.8e-09
 // Distance to polytope: 3.789716e-10
+//------------------------------------------------------------------------------
+
+/*============================== lotfi LP problem ================================*
+// Number of equations: 16
+// Subspace dimension: 25
+#define PP_PROBLEM_NAME		"lotfi"
+#define PP_M 153	// Number of equations (after conversion to standard form)
+#define PP_N 308	// Number of variables in mps-file (after conversion to standard form)
+#define PP_MAX_OBJ_VALUE 25.26470606188
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 7
+// Number of iterations: 47
+// Computed objective value:    142540.049998999980743974
+// Target objective value:      142540.049998999980743974
+// Relative error = 0
+// Distance to polytope: 2.3713009e-12
 //------------------------------------------------------------------------------
 
 /*============================== recipe LP problem =============================*

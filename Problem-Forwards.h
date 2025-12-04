@@ -9,6 +9,8 @@ This source code has been produced with using BSF-skeleton
 #include "Problem-Types.h"
 //====================== Private Functions =====================================
 namespace PF {
+	void	Lambda(PT_vector_T v, PT_vector_T y, double* lambda_min, int* j_star, double eps_zero);
+	void	Make_y(PT_vector_i_T basis_v, int i_star, PT_vector_T y);
 	void	MakeBasis_v(PT_vector_T v, PT_vector_i_T basis_v);
 	bool	OptimumIsFound(double eps_zero);
 	void	PreparationForIteration(PT_vector_i_T basis_v);

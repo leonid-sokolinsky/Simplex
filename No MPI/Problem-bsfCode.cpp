@@ -7,11 +7,11 @@ Prefix:	PC_bsf	- BSF Predefined Problem Functions
 		PF		- Private Functions
 Author: Leonid B. Sokolinsky
 This source code has been produced with using BSF-skeleton
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Method description: Schrijver A. Theory of Linear and Integer Programming.
 Chichester, New York, Brisbane, Toronto, Singapore: Wiley and Sons, 1998.
 P. 129-130.
-==============================================================================*/
+================================================================================*/
 #include "Problem-Data.h"			// Problem Types 
 #include "Problem-Forwards.h"		// Problem Function Forwards
 #include "Problem-bsfParameters.h"	// BSF-skeleton parameters
@@ -20,7 +20,7 @@ using namespace std;
 using namespace SF;
 using namespace PF;
 
-//---------------------------------- BSF Predefined Problem Functions -----------------------------
+//------------------------- BSF Predefined Problem Functions -------------------
 
 void PC_bsf_CopyParameter(PT_bsf_parameter_T parameterIn, PT_bsf_parameter_T* parameterOutP) {
 	Vector_Copy(parameterIn.v, parameterOutP->v);
@@ -159,15 +159,18 @@ void PC_bsf_MainArguments(int argc, char* argv[]) {
 }
 
 void PC_bsf_MapF(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T* reduceElem, int* mapSuccess) {
-	double lambda_min = PP_INFINITY;
-	PT_vector_T lambda_DOT_y;
+	double lambda;
 	static PT_vector_T y;			// Auxiliary vector
+	PT_vector_T lambda_DOT_y;
 	int entryNumber = 0;
 
 	if (OptimumIsFound(PP_EPS_ZERO)) {
-		*mapSuccess = false;
+		reduceElem->optimumIsFound = true;
+		*mapSuccess = true;
 		return;
 	}
+
+	reduceElem->optimumIsFound = false;
 
 	reduceElem->i_star = -1;
 	for (int i = 0; i < PD_m; i++) {
@@ -176,55 +179,47 @@ void PC_bsf_MapF(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T* reduceElem, int
 		if (PD_u[i] < -PP_EPS_ZERO) {
 			entryNumber++;
 			if (entryNumber == mapElem->entryNumber) {
+
+				Make_y(BSF_sv_parameter.basis_v, i, y);
+
+				int j_star;
+				Lambda(BSF_sv_parameter.v, y, &lambda, &j_star, PP_EPS_ZERO);
+
+				assert(lambda >= 0 - PP_EPS_ZERO);
+
+				reduceElem->j_star = j_star;
+				assert(reduceElem->j_star >= 0);
+
+				Vector_MultiplyByNumber(y, lambda, lambda_DOT_y);
+				Vector_Addition(BSF_sv_parameter.v, lambda_DOT_y, reduceElem->v_nex);
+				reduceElem->objF_nex = ObjF(reduceElem->v_nex);
+
+				#ifdef PP_DEGENERATE
+				if (!PointBelongsToPolytope(reduceElem->v_nex, PP_EPS_ON_HYPERPLANE))
+					continue;
+				#endif // PP_DEGENERATE
+
+				assert(PointBelongsToPolytope(reduceElem->v_nex, PP_EPS_ON_HYPERPLANE)); // Try #define PP_DEGENERATE
+
+				#ifdef PP_GRADIENT
+				double norm_y = Vector_Norm(y);
+				PT_vector_T v_grad;
+				Vector_DivideByNumber(y, norm_y, v_grad);
+				Vector_Addition(BSF_sv_parameter.v, v_grad, v_grad);
+				reduceElem->objF_grd = ObjF(v_grad);
+				#endif // PP_GRADIENT
+
 				reduceElem->i_star = i;
+
 				break;
 			}
 		}
 	}
-		
+
 	if (reduceElem->i_star == -1) {
 		*mapSuccess = false;
 		return;
 	}
-
-	if (mapElem->entryNumber == 1) {
-		assert(reduceElem->i_star >= 0);
-	}
-
-	assert(!PD_isEquation[reduceElem->i_star]);
-
-	bool ok = false;
-	for (int j = 0; j < PD_n; j++)
-		if (BSF_sv_parameter.basis_v[j] == reduceElem->i_star) {
-			for (int i = 0; i < PD_n; i++)
-				y[i] = -PD_AI_v[i][j];
-			ok = true;
-			break;
-		}
-	assert(ok);
-
-	for (int j = 0; j < PD_m; j++) {
-		double a_j_DOT_y = Vector_DotProduct(PD_A[j], y);
-		if (a_j_DOT_y > PP_EPS_ZERO) {
-			double lambda = (PD_b[j] - Vector_DotProduct(PD_A[j], BSF_sv_parameter.v)) / a_j_DOT_y;
-			if (lambda < lambda_min) {
-				lambda_min = lambda;
-				reduceElem->j_star = j;
-			}
-		}
-	}
-
-	Vector_MultiplyByNumber(y, lambda_min, lambda_DOT_y);
-	Vector_Addition(BSF_sv_parameter.v, lambda_DOT_y, reduceElem->v_nex);
-	reduceElem->objF_nex = ObjF(reduceElem->v_nex);
-
-	#ifdef PP_GRADIENT
-	double norm_y = Vector_Norm(y);
-	PT_vector_T v_grad;
-	Vector_DivideByNumber(y, norm_y, v_grad);
-	Vector_Addition(BSF_sv_parameter.v, v_grad, v_grad);
-	reduceElem->objF_grd = ObjF(v_grad);
-	#endif // PP_GRADIENT
 
 } // end PC_bsf_MapF
 
@@ -280,12 +275,6 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 
 	cout << endl;
 
-	#ifdef PP_OPT_MIN
-	cout << "Optimization: Minimum" << endl;
-	#else
-	cout << "Optimization: Maximum" << endl;
-	#endif // PP_OPT_MIN
-
 	#ifdef PP_GRADIENT
 	cout << "Strategy: The steepest edge" << endl;
 	#else
@@ -302,6 +291,8 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 
 	cout << "PP_EPS_ZERO\t\t\t" << PP_EPS_ZERO << endl;
 	cout << "PP_EPS_ON_HYPERPLANE\t\t" << PP_EPS_ON_HYPERPLANE << endl;
+
+	cout << endl;
 
 	#ifdef PP_MATRIX_OUTPUT
 	cout << "Obj Function:\t"; 	Vector_Print(PD_c); cout << endl;
@@ -361,19 +352,30 @@ void PC_bsf_ProblemOutput_3(PT_bsf_reduceElem_T_3* reduceResult, int reduceCount
 }
 
 void PC_bsf_ProcessResults(PT_bsf_reduceElem_T* reduceResult, int reduceCounter, PT_bsf_parameter_T* parameter, int* nextJob, bool* exit) {
-	
-	if (reduceCounter == 0) {
-		if (PD_iterNo == 0)
-			cout << "The initial vertex is optimal!" << endl;
+
+	if (reduceCounter == 0 && PD_iterNo == 0) {
+		cout << "The initial vertex is optimal!" << endl;
+		*exit = true;
+		return;
+	}
+
+	if (reduceResult->optimumIsFound) {
+		cout << "Optimum is found!" << endl;
 		*exit = true;
 		return;
 	}
 
 	PD_iterNo++;
 
+	if (reduceCounter == 0) {
+		cout << "Process is cycling!!!" << endl;
+		*exit = true;
+		return;
+	}
+
 	#ifdef PP_SAVE_ITER_RESULT
 	char buf[10];
-	sprintf(buf, "%d", (int)(ObjF(PD_v) * PP_SCALE_FACTOR));
+	sprintf(buf, "%d", (int)fabs(ObjF(PD_v) * PP_SCALE_FACTOR));
 	string postfix = "_v(" + string(buf) + ").mtx";
 	if (MTX_SavePoint(PD_v, postfix))
 		cout << "Current approximation is saved into file *_v(*).mtx" << endl;
@@ -391,6 +393,9 @@ void PC_bsf_ProcessResults(PT_bsf_reduceElem_T* reduceResult, int reduceCounter,
 
 	cout << "_________________________________________________ " << PD_iterNo << " _____________________________________________________" << endl;
 	cout << "ObjF = " << setprecision(18) << ObjF(PD_v) << endl << setprecision(PP_SETW / 2);
+	#ifdef PP_DEBUG
+	cout << "Distance to polytope: " << Distance_PointToPolytope(PD_v) << endl;
+	#endif // PP_DEBUG
 	#ifdef PP_MATRIX_OUTPUT
 	cout << "v =\t\t"; Vector_Print(PD_v); cout << endl;
 	#endif // PP_MATRIX_OUTPUT
@@ -409,11 +414,17 @@ void PC_bsf_ProcessResults_3(PT_bsf_reduceElem_T_3* reduceResult, int reduceCoun
 }
 
 void PC_bsf_ReduceF(PT_bsf_reduceElem_T* x, PT_bsf_reduceElem_T* y, PT_bsf_reduceElem_T* z) { // z = x o y
+	if (x->optimumIsFound) {
+		z->optimumIsFound = true;
+		assert(y->optimumIsFound);
+		return;
+	}
+
 	#ifdef PP_GRADIENT
 	if (x->objF_grd >= y->objF_grd)
-	#else
-	if (x->objF_nex >= y->objF_nex) 
-	#endif // PP_GRADIENT
+		#else
+	if (x->objF_nex >= y->objF_nex)
+		#endif // PP_GRADIENT
 	{
 		z->i_star = x->i_star;
 		z->j_star = x->j_star;
@@ -771,6 +782,7 @@ namespace SF {
 
 		if (*mi > rank)
 			for (int check_count = 0; check_count < meq_total; check_count++) { // always check the last
+				if (BSF_sv_mpiRank == BSF_sv_mpiMaster) cout << "List_i_Basis: " << setprecision(5) << (100 * (double)check_count / (double)meq_total) << "%" << endl << setprecision(PP_SETW / 2);
 				if (*mi == rank)
 					return;
 				Matrix_Rank(list_i, (*mi) - 1, PP_EPS_ZERO, &probeRank);
@@ -1205,20 +1217,12 @@ namespace SF {
 			return false;
 		}
 
-		for (int j = 0; j < _n; j++) { // Adding x >= 0
-			_A[j + _m][j] = -1;
-			_b[j + _m] = 0;
-		}
-		_m += _n; assert(_m <= PP_MM);
-
-
 		for (int j = 0; j < _n; j++) { // Adding lower bounds
-			if (loBound[j] > 0) {
-				_A[_m][j] = -1;
-				_b[_m] = -loBound[j];
-				_m++; assert(_m <= PP_MM);
-			}
+			_A[_m + j][j] = -1;
+			if (loBound[j] > 0)
+				_b[_m + j] = -loBound[j];
 		}
+		_m += _n;
 
 		for (int j_up = 0; j_up < n_up; j_up++) { // Adding upper bounds
 			_A[_m][upBound[j_up].varIndex] = 1;
@@ -1577,11 +1581,7 @@ namespace SF {
 						cout << "MPS_AddObjectiveFunction error: Coefficient redefinition of the objective function for " << column[i_col].varName << "." << endl;
 					return false;
 				}
-				#ifdef PP_OPT_MIN
-				_c[column[i_col].j] = column[i_col].value;
-				#else
 				_c[column[i_col].j] = -column[i_col].value;
-				#endif
 			}
 		return true;
 	}
@@ -1796,8 +1796,7 @@ namespace SF {
 			if (RHS_value != 0)
 			{
 				if (BSF_sv_mpiRank == BSF_sv_mpiMaster)
-					cout << "MPS_ReadRHS_line warning: RHS value for row of type 'N' is not equal to 0." << endl;
-				return false;
+					cout << "MPS_ReadRHS_line warning: RHS value " << RHS_value << " for row of type 'N' is not equal to 0." << endl;
 			}
 
 		MPS_SkipSpaces(stream);
@@ -2915,7 +2914,7 @@ namespace SF {
 	}
 
 	static inline void Vector_Print(PT_vector_T x) {
-		for (int j = 0; j < _n; j++) 
+		for (int j = 0; j < _n; j++)
 			cout << setw(PP_SETW) << x[j];
 		cout << endl;
 	}
@@ -2973,10 +2972,10 @@ namespace SF {
 namespace PF {
 	using namespace SF;
 
-	static inline void _Make_A_v(int* basis_v) {
+	static inline void _Make_A0(int* basis_v) {
 		for (int i = 0; i < _n; i++)
 			for (int j = 0; j < _n; j++)
-				PD_A_v[i][j] = _A[basis_v[i]][j];
+				PD_A0[i][j] = _A[basis_v[i]][j];
 	}
 
 	static inline void _Make_AI_v(double eps_zero, bool* success) {
@@ -2985,13 +2984,13 @@ namespace PF {
 		*success = true;
 
 		for (int i = 0; i < _n; i++)   // Make a copy of original matrix
-			for (int j = 0; j < _n; j++) 
-					_D[i][j] = PD_A_v[i][j];
+			for (int j = 0; j < _n; j++)
+				_D[i][j] = PD_A0[i][j];
 
 		for (int i = 0; i < _n; i++) { // Make identity matrix 
-			for (int j = 0; j < _n; j++) 
-				PD_AI_v[i][j] = 0;
-			PD_AI_v[i][i] = 1;
+			for (int j = 0; j < _n; j++)
+				PD_A0I[i][j] = 0;
+			PD_A0I[i][i] = 1;
 		}
 
 		for (int j = 0; j < _n; j++) {
@@ -3015,9 +3014,9 @@ namespace PF {
 						buf = _D[j][l];
 						_D[j][l] = _D[i_ne_0][l];
 						_D[i_ne_0][l] = buf;
-						buf = PD_AI_v[j][l];
-						PD_AI_v[j][l] = PD_AI_v[i_ne_0][l];
-						PD_AI_v[i_ne_0][l] = buf;
+						buf = PD_A0I[j][l];
+						PD_A0I[j][l] = PD_A0I[i_ne_0][l];
+						PD_A0I[i_ne_0][l] = buf;
 					}
 				}
 				else {
@@ -3052,9 +3051,9 @@ namespace PF {
 						buf = _D[i][j];
 						_D[i][j] = _D[i][j_ne_0];
 						_D[i][j_ne_0] = buf;
-						buf = PD_AI_v[i][j];
-						PD_AI_v[i][j] = PD_AI_v[i][j_ne_0];
-						PD_AI_v[i][j_ne_0] = buf;
+						buf = PD_A0I[i][j];
+						PD_A0I[i][j] = PD_A0I[i][j_ne_0];
+						PD_A0I[i][j_ne_0] = buf;
 					}
 				}
 			}
@@ -3062,14 +3061,14 @@ namespace PF {
 			factor = _D[j][j];
 			for (int l = 0; l < _n; l++) { // make 1
 				_D[j][l] = _D[j][l] / factor;
-				PD_AI_v[j][l] = PD_AI_v[j][l] / factor;
+				PD_A0I[j][l] = PD_A0I[j][l] / factor;
 			}
 
 			for (int i = j + 1; i < _n; i++) {
 				factor = _D[i][j];
 				for (int l = 0; l < _n; l++) {
 					_D[i][l] = _D[i][l] - _D[j][l] * factor;
-					PD_AI_v[i][l] = PD_AI_v[i][l] - PD_AI_v[j][l] * factor;
+					PD_A0I[i][l] = PD_A0I[i][l] - PD_A0I[j][l] * factor;
 				}
 			}
 		}
@@ -3079,26 +3078,53 @@ namespace PF {
 				factor = _D[k][i];
 				for (int j = 0; j < _n; j++) {
 					_D[k][j] = _D[k][j] - _D[i][j] * factor;
-					PD_AI_v[k][j] = PD_AI_v[k][j] - PD_AI_v[i][j] * factor;
+					PD_A0I[k][j] = PD_A0I[k][j] - PD_A0I[i][j] * factor;
 				}
 			}
 	}
 
-	static inline void _Make_cAI_v(PT_vector_T cAI_v){
+	static inline void _Make_cA0I(PT_vector_T cA0I) {
 		for (int j = 0; j < _n; j++) {
-			cAI_v[j] = 0;
+			cA0I[j] = 0;
 			for (int i = 0; i < _n; i++)
-				cAI_v[j] = cAI_v[j] + _c[i] * PD_AI_v[i][j];
+				cA0I[j] = cA0I[j] + _c[i] * PD_A0I[i][j];
 		}
 	}
 
-	static inline void _Make_u(int* basis_v, PT_vector_T cAI_v, double eps_zero) {
+	static inline void _Make_u(int* basis_v, PT_vector_T cA0I, double eps_zero) {
 		Column_Zeroing(PD_u);
 		for (int i = 0; i < _n; i++)
-			if (fabs(cAI_v[i]) > eps_zero)
-				PD_u[basis_v[i]] = cAI_v[i];
+			if (fabs(cA0I[i]) > eps_zero)
+				PD_u[basis_v[i]] = cA0I[i];
 			else
 				PD_u[basis_v[i]] = 0;
+	}
+
+	static inline void Lambda(PT_vector_T v, PT_vector_T y, double* lambda_min, int* j_star, double eps_zero) {
+		*lambda_min = PP_INFINITY;
+		*j_star = -1;
+		for (int j = 0; j < PD_m; j++) {
+			double a_j_DOT_y = Vector_DotProduct(_A[j], y);
+			if (a_j_DOT_y > eps_zero) {
+				double lambda = (_b[j] - Vector_DotProduct(_A[j], v)) / a_j_DOT_y;
+				if (lambda < *lambda_min) {
+					*lambda_min = lambda;
+					*j_star = j;
+				}
+			}
+		}
+	}
+
+	static inline void Make_y(PT_vector_i_T basis_v, int i_star, PT_vector_T y) {
+		bool ok = false;
+		for (int j = 0; j < PD_n; j++)
+			if (basis_v[j] == i_star) {
+				for (int i = 0; i < PD_n; i++)
+					y[i] = -PD_A0I[i][j];
+				ok = true;
+				break;
+			}
+		assert(ok);
 	}
 
 	static inline void MakeBasis_v(PT_vector_T v, PT_vector_i_T basis_v) {
@@ -3124,7 +3150,7 @@ namespace PF {
 	}
 
 	static inline void PreparationForIteration(PT_vector_i_T basis_v) {
-		PT_vector_T cAI_v;
+		PT_vector_T cA0I;
 
 		/* PreparationForIteration */
 		#ifdef PP_DEBUG
@@ -3133,7 +3159,7 @@ namespace PF {
 		assert(rank == _n);
 		#endif PP_DEBUG /**/
 
-		_Make_A_v(basis_v);
+		_Make_A0(basis_v);
 
 		bool success;
 		_Make_AI_v(PP_EPS_ZERO, &success);
@@ -3144,7 +3170,7 @@ namespace PF {
 			for (int j = 0; j < _n; j++) {
 				double s = 0;
 				for (int k = 0; k < _n; k++)
-					s = s + PD_A_v[i][k] * PD_AI_v[k][j];
+					s = s + PD_A0[i][k] * PD_A0I[k][j];
 				if (i == j)
 					assert(fabs(s - 1) <= PP_EPS_ZERO);
 				else
@@ -3152,7 +3178,7 @@ namespace PF {
 			}
 		#endif PP_DEBUG /**/
 
-		_Make_cAI_v(cAI_v);
-		_Make_u(basis_v, cAI_v, PP_EPS_ZERO);
+		_Make_cA0I(cA0I);
+		_Make_u(basis_v, cA0I, PP_EPS_ZERO);
 	}
 }

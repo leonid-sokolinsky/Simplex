@@ -40,10 +40,13 @@ This source code has been produced with using BSF-skeleton
 #define PP_METHOD_NAME "Simplex"
 
 //-------------------------- Compilation Modes ---------------------------------
-#define PP_DEBUG
+#define PP_NORMALIZATION
+//#define PP_DEBUG
 //#define PP_MATRIX_OUTPUT
+//#define PP_SAVE_ITER_RESULT
 //#define PP_SAVE_RESULT
 //#define PP_OPT_MIN // Optimization by minimum
+
 //================================ Problem Paramrters ==========================
 #define PP_MM							(PP_M+2*PP_N)	// Maximal number of constraints
 #define PP_EPS_JUMP_VECTOR_LEN			1E-3			// Minimum acceptable length of the jump vector
