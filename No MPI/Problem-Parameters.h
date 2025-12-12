@@ -40,12 +40,11 @@ This source code has been produced with using BSF-skeleton
 #define PP_METHOD_NAME "Simplex noMPI"
 
 //-------------------------- Compilation Modes ---------------------------------
-//#define PP_NORMALIZATION
 #define PP_DEBUG
 //#define PP_MATRIX_OUTPUT
 //#define PP_SAVE_ITER_RESULT
 //#define PP_SAVE_RESULT
-//#define PP_OPT_MIN // Optimization by minimum
+#define PP_SF_LIST_I_BASIS_GAUGE
 
 //================================ Problem Paramrters ==========================
 #define PP_MM							(PP_M+2*PP_N)	// Maximal number of constraints

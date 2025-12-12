@@ -13,10 +13,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MPS_FORMAT
 
 //=========================== Problem Parameters ===============================
-// PP_OBJECTIVE_VECTOR_LENGTH - direct dependence on dimension PD_n.
-// P_EPS_ZERO - inverse dependence on PP_OBJECTIVE_VECTOR_LENGTH.
-//------------------------------------------------------------------------------
-#define PP_MAX_PSEUDOPROJECTING_ITER	100000000		// Maximum acceptable number of iterations in Pseudoprojection on flat
+#define PP_GRADIENT
+#define PP_NORMALIZATION
 
 /*============================== 25FV47 LP problem =============================*
 #define PP_PROBLEM_NAME		"25FV47"
@@ -24,11 +22,11 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 1571	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 		-5501.8458882867447945812325883916
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11		// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-8		// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-11		// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-8		// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 
-/*============================== adlittle LP problem ===========================*/
+/*============================== adlittle LP problem ===========================*
 // Number of equations: 15
 // Subspace dimension: 82
 #define PP_PROBLEM_NAME		"adlittle"
@@ -36,15 +34,24 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 97	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 		-225494.96316238038228101176621492
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11		// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-8		// Accuracy of belonging to hyperplane
-//------------------------------------------------------------------------------
-/// Elapsed time: 0
-// Number of iterations: 4
-// Computed objective value: -225494.963164675747975707
+#define PP_EPS_ZERO				1E-11		// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-8		// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//------------------------- lp_adlittle_v - original.mtx -----------------------
+// Elapsed time: 0
+// Number of iterations: 8
+// Computed objective value: -225494.963164795597549528
 // Maximal objective value:  -225494.963162380387075245
-// Relative error = 1.02e-11
-// Distance to polytope: 5.8608178e-09
+// Relative error = 1.07e-11
+// Distance to polytope: 5.8608182e-09
+//------------------------- lp_adlittle_v - VeRSAl.mtx -------------------------
+// Elapsed time: 1
+// Number of iterations: 87
+// Computed objective value: -225494.963162380852736533
+// Maximal objective value:  -225494.963162380387075245
+// Relative error = 2.07e-15
+// Distance to polytope: 4.7814794e-12
 //------------------------------------------------------------------------------
 
 /*============================== afiro LP problem ==============================*
@@ -55,15 +62,19 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 32			// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 464.75314285714285714285714285714
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO						1E-11		// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE			1E-10		// Accuracy of belonging to hyperplane
-//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-11		// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10		// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//------------------------- lp_afiro_v - original.mtx --------------------------
 // Elapsed time: 0
 // Number of iterations: 2
 // Computed objective value: 464.753142857050022485055
 // Maximal objective value:  464.753142857142847788054
 // Relative error = 2e-13
-// Distance to polytope: 1.2893561e-11
+// Distance to polytope: 1.2915046e-11
+//------------------------- lp_afiro_v - VeRSAl.mtx ----------------------------
+// Process is cycling!!!
 //------------------------------------------------------------------------------
 
 /*============================== agg LP problem ================================*
@@ -74,20 +85,28 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 163	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 		35991767.286576506712640824319636
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-8	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+#define PP_SCALE_FACTOR			1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_DEGENERATE
-//#define PP_GRADIENT
-//------------------------------------------------------------------------------
-// Elapsed time: 0
-// Number of iterations: 46
-// Computed objective value: 35651927.286576472222805
+//------------------------- lp_agg_v - original.mtx ----------------------------
+// Process is cycling!!!
+// Elapsed time: 1
+// Number of iterations: 36
+// Computed objective value: 35991767.2865764871239662
 // Maximal objective value:  35991767.286576509475708
-// Relative error = 0.00944
-// Distance to polytope: 1.2025106e-10
+// Relative error = 6.21e-16
+// Distance to polytope: 4.163304e-11
+//------------------------- lp_agg_v - VeRSAl.mtx ------------------------------
+// Process is cycling!!!
+// Elapsed time: 1
+// Number of iterations: 48
+// Computed objective value: 35651546.1899528428912163
+// Maximal objective value:  35991767.286576509475708
+// Relative error = 0.00945
+// Distance to polytope: 8.0167374e-11
 //------------------------------------------------------------------------------
 
 /*============================== agg2 LP problem ===============================*
@@ -98,20 +117,20 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 302	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 		20239252.355977109024317661926133
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-9	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-9	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-7	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+#define PP_SCALE_FACTOR			1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_DEGENERATE
-//#define PP_GRADIENT
-//------------------------------------------------------------------------------
+//------------------------- lp_agg2_v - VeRSAl.mtx -----------------------------
+// Process is cycling!!!
 // Elapsed time: 4
-// Number of iterations: 132
-// Computed objective value: 17444364.3085763119161129
+// Number of iterations: 119
+// Computed objective value: 17444364.308576300740242
 // Maximal objective value:  20239252.3559771105647087
 // Relative error = 0.138
-// Distance to polytope: 7.77714e-11
+// Distance to polytope: 2.8490975e-09
 //------------------------------------------------------------------------------
 
 /*============================== beaconfd LP problem ===========================*
@@ -122,17 +141,25 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 262	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE -33592.4858072
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		8E-2	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
+#define PP_SCALE_FACTOR			1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//------------------------- beaconfd - original.mtx ----------------------------
+// #define PP_EPS_ON_HYPERPLANE	1E-7	// Accuracy of belonging to hyperplane
 // Elapsed time: 0
-// Number of iterations: 29
-// Computed objective value: -33592.1310571940048248507
+// Number of iterations: 15
+// Computed objective value: -33592.4858072347778943367
 // Maximal objective value:  -33592.4858071999988169409
-// Relative error = 1.06e-05
-// Distance to polytope: 0.074991564
+// Relative error = 1.04e-12
+// Distance to polytope: 4.4545494e-09
+//------------------------- beaconfd - VeRSAl.mtx ------------------------------
+// Elapsed time: 1
+// Number of iterations: 22
+// Computed objective value: -33592.4858071999769890681
+// Maximal objective value:  -33592.4858071999988169409
+// Relative error = 6.5e-16
+// Distance to polytope: 1.8296349e-12
 //------------------------------------------------------------------------------
 
 /*============================== blend LP problem ==============================*
@@ -143,38 +170,47 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 83			// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 30.812149845828220173774356124984	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-9	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-6	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-6	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
+#define PP_SCALE_FACTOR			1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- lp_blend_v - 30.80988.mtx -------------------------
 // Elapsed time: 0
-// Number of iterations: 321
-// Computed objective value: 30.8121498458278431087365
+// Number of iterations: 6
+// Computed objective value: 30.8121498458471130277303
 // Maximal objective value:  30.8121498458282196963864
-// Relative error = 1.22e-14
-// Distance to polytope: 5.0086275e-14
+// Relative error = 6.13e-13
+// Distance to polytope: 6.1745101e-12
+//-------------------------- lp_blend_v - zero.mtx -----------------------------
+// Elapsed time: 0
+// Number of iterations: 79
+// Computed objective value: 30.8121498458465872261058
+// Maximal objective value:  30.8121498458282196963864
+// Relative error = 5.96e-13
+// Distance to polytope: 6.1833553e-12
 //------------------------------------------------------------------------------
 
 /*============================== e226 LP problem ==============================*
-// Number of equations: 140
-// Subspace dimension: 122
+// Number of equations: 33
+// Subspace dimension : 249
 #define PP_PROBLEM_NAME		"e226"
 #define PP_M 223	// Number of constraints in mps-file
 #define PP_N 282	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 18.751929066370549102605687681285
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-9	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-8	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
-// Elapsed time: 8
-// Number of iterations: 415
-// Computed objective value: 18.8491867679356204234864
+#define PP_SCALE_FACTOR			1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_e226_v - VeRSAl.mtx ----------------------------
+// Elapsed time: 7
+// Number of iterations: 281
+// Computed objective value: 18.7519290663674240704495
 // Maximal objective value:  18.7519290663705504584868
-// Relative error = 0.00519
-// Distance to polytope: 0.93998384
+// Relative error = 1.67e-13
+// Distance to polytope: 9.4092043e-14
 //------------------------------------------------------------------------------
 
 /*============================== fit1d LP problem ==============================*
@@ -185,20 +221,29 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 1026	// Number of variables
 #define PP_MAX_OBJ_VALUE 9146.3780924209269467749025024617	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-7	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+5	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
-// Elapsed time: 9
-// Number of iterations: 15
-// Computed objective value: 9146.37811473882720747497
+#define PP_SCALE_FACTOR			1E+5	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- lp_fit1d_v - zero.mtx -----------------------------
+// Cycling!
+//-------------------------- lp_fit1d_v - 7715.46526.mtx -----------------------
+// Elapsed time: 355
+// Number of iterations: 178
+// Computed objective value: 9146.37811323113237449434
+// Maximal objective value:  9146.37809242092771455646
+// Relative error = 2.28e-09
+// Distance to polytope: 3.8550376e-08
+//-------------------------- lp_fit1d_v - 7715.46526.mtx -----------------------
+// Elapsed time: 2
+// Number of iterations: 2
+// Computed objective value: 9146.37811473882902646437
 // Maximal objective value:  9146.37809242092771455646
 // Relative error = 2.44e-09
-// Distance to polytope: 2.1285883e-09
+// Distance to polytope: 3.8550369e-08
 //------------------------------------------------------------------------------
 
-/*============================== grow7 LP problem ============================*
+/*============================== grow7 LP problem ==============================*
 // Number of equations: 140
 // Subspace dimension: 161
 #define PP_PROBLEM_NAME		"grow7"
@@ -206,41 +251,42 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 301	// Number of variables in mps-file (after conversion to standard form)
 #define PP_MAX_OBJ_VALUE 47787811.814711502616766956242865	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO						1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE			1E-5	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-8	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-4	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
-// Elapsed time: 1
+#define PP_SCALE_FACTOR			1E+1	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_grow7_v - 43969431.1.mtx -----------------------
+// Elapsed time: 0
 // Number of iterations: 11
 // Computed objective value: 47787811.8147159442305565
 // Maximal objective value:  47787811.8147115036845207
 // Relative error = 9.29e-14
-// Distance to polytope: 7.2316328e-06
+// Distance to polytope: 9.6680308e-06
+//-------------------------- lp_grow7_v - zero.mtx -----------------------------
+// Cicling!
 //------------------------------------------------------------------------------
 
-/*============================== grow15 LP problem ============================*
-// Number of equations: 140
-// Subspace dimension: 161
+/*============================== grow15 LP problem =============================*
+// Number of equations: 300
+// Subspace dimension: 345
 #define PP_PROBLEM_NAME		"grow15"
 #define PP_M 300	// Number of equations (after conversion to standard form)
 #define PP_N 645	// Number of variables in mps-file (after conversion to standard form)
 #define PP_MAX_OBJ_VALUE 106870941.29357533671604040930313	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-2	// Accuracy of belonging to hyperplane
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+0	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
-// Elapsed time: 10
-// Number of iterations: 71
-// Computed objective value: 129750000
-// Maximal objective value:  106870941.293575331568718
-// Relative error = 0.214
-// Distance to polytope: 593405.04
+#define PP_SCALE_FACTOR				1		// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_grow7_v - zero.mtx -----------------------------
+// Cicling!
 //------------------------------------------------------------------------------
 
-/*============================== israel LP problem =========================*
+/*============================== israel LP problem =============================*
 // Number of equations: 0
 #define PP_PROBLEM_NAME		"israel"
 #define PP_M 174	// Number of constraints in mps-file
@@ -248,14 +294,21 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 896644.82186304572966200464196045	// Exact maximum value of objective function
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-8	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
-//------------------------------------------------------------------------------
+#define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
+//-------------------------- lp_israel_v - 896528.92.mtx -----------------------
 // Elapsed time: 0
-// Number of iterations: 2
-// Computed objective value: 896644.821862765122205019
+// Number of iterations: 1
+// Computed objective value: 896644.821862692828290164
 // Maximal objective value:  896644.821863045683130622
-// Relative error = 3.13e-13
-// Distance to polytope: 2.1396484e-10
+// Relative error = 3.94e-13
+// Distance to polytope: 1.9698633e-11
+//-------------------------- lp_israel_v - VeRSAl.mtx --------------------------
+// Elapsed time: 1
+// Number of iterations: 168
+// Computed objective value: 896644.821863048011437058
+// Maximal objective value:  896644.821863045683130622
+// Relative error = 2.6e-15
+// Distance to polytope: 1.0379658e-11
 //------------------------------------------------------------------------------
 
 /*============================== kb2 LP problem ================================*
@@ -266,34 +319,51 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 41	// Number of variables in mps-file (after conversion to standard form)
 #define PP_MAX_OBJ_VALUE 1749.9001299062057129526866493726
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-6	// Accuracy of belonging to hyperplane
-//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-5	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-5	// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#undef PP_NORMALIZATION
+//-------------------------- lp_kb2_v - 1631.77811 -----------------------------
 // Elapsed time: 0
-// Number of iterations: 16
-// Computed objective value: 1749.90011625635452219285
+// Number of iterations: 18
+// Computed objective value: 1749.90011625830607044918
 // Maximal objective value:  1749.90012990620562050026
 // Relative error = 7.8e-09
-// Distance to polytope: 3.789716e-10
+// Distance to polytope: 4.8216631e-10
+//-------------------------- lp_kb2_v - zero.mtx -------------------------------
+// Elapsed time: 0
+// Number of iterations: 73
+// Computed objective value: 1749.90012990620925847907
+// Maximal objective value:  1749.90012990620562050026
+// Relative error = 2.08e-15
+// Distance to polytope: 5.0994242e-13
 //------------------------------------------------------------------------------
 
-/*============================== lotfi LP problem ================================*
-// Number of equations: 16
-// Subspace dimension: 25
+/*============================== lotfi LP problem ==============================*
+// Number of equations: 95
+// Subspace dimension: 213
 #define PP_PROBLEM_NAME		"lotfi"
 #define PP_M 153	// Number of equations (after conversion to standard form)
 #define PP_N 308	// Number of variables in mps-file (after conversion to standard form)
 #define PP_MAX_OBJ_VALUE 25.26470606188
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-10	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
-//------------------------------------------------------------------------------
-// Elapsed time: 7
-// Number of iterations: 47
-// Computed objective value:    142540.049998999980743974
-// Target objective value:      142540.049998999980743974
-// Relative error = 0
-// Distance to polytope: 2.3713009e-12
+#define PP_EPS_ZERO				1E-8	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-7	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR			1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- ? -------------------------------------------------
+// ?
+//-------------------------- lp_lotfi_v - VeRSAl.mtx ---------------------------
+// Process is cycling!
+// Elapsed time: 2
+// Number of iterations: 94
+// Computed objective value: -226.060809995809705696956
+// Maximal objective value:  25.264706061879998344466
+// Relative error = 9.95
+// Distance to polytope: 1.5008806e-11
 //------------------------------------------------------------------------------
 
 /*============================== recipe LP problem =============================*
@@ -304,18 +374,26 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 180	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 266.616 // Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-8	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_BASIC_VECTORS_ONLY
-//------------------------------------------------------------------------------
-// cycling!
+//-------------------------- lp_recipe_v - 262.82.mtx --------------------------
+// cycling! <============ SAlEM faster
 // Elapsed time: 0
-// Number of iterations: 14
-// Computed objective value: 266.616000000034091499401
+// Number of iterations: 12
+// Computed objective value: 266.616000000114922841021
 // Maximal objective value:  266.615999999999985448085
-// Relative error = 1.28e-13
-// Distance to polytope: 1.0569e-12
+// Relative error = 4.31e-13
+// Distance to polytope: 1.4836e-12
+//-------------------------- p_recipe_v - VeRSAl.mtx ---------------------------
+// Elapsed time: 0
+// Number of iterations: 23
+// Computed objective value: 266.616000000000269665179
+// Maximal objective value:  266.615999999999985448085
+// Relative error = 1.07e-15
+// Distance to polytope: 1.0255801e-15
 //------------------------------------------------------------------------------
 
 /*============================== sc105 LP problem ==============================*
@@ -326,17 +404,25 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 103	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 52.202061211707248062628010857689 // Exact maximum value of objective function
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
 #define PP_SCALE_FACTOR				1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
+//-------------------------- lp_sc105_v - 41.9459600.mtx -----------------------
 // Elapsed time: 0
 // Number of iterations: 32
 // Computed objective value: 52.2020612117204976243556
 // Maximal objective value:  52.2020612117072460023337
 // Relative error = 2.54e-13
 // Distance to polytope: 2.4098883e-11
+//-------------------------- lp_sc105_v - zero.mtx -----------------------------
+// Elapsed time: 0
+// Number of iterations: 30
+// Computed objective value: 52.2020612117072531077611
+// Maximal objective value:  52.2020612117072460023337
+// Relative error = 1.36e-16
+// Distance to polytope: 6.5637126e-14
 //------------------------------------------------------------------------------
 
 /*============================== sc50a LP problem ==============================*
@@ -346,36 +432,135 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_M 49	// Number of constraints
 #define PP_N 48	// Number of variables
 #define PP_MAX_OBJ_VALUE 64.575077058564509026860413914575	// Exact maximum value of objective function
-//-------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
-//----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
+//-------------------------- lp_sc50a_v - 14.3900577.mtx -----------------------
 // Elapsed time: 0
 // Number of iterations: 2
 // Computed objective value: 64.5750770586596019029457
 // Maximal objective value:  64.5750770585645028631916
 // Relative error = 1.47e-12
 // Distance to polytope: 1.9414848e-11
-//----------------------------------------------------------------------------
+//-------------------------- lp_sc50a_v - zero.mtx -----------------------------
+// Elapsed time: 0
+// Number of iterations: 14
+// Computed objective value: 64.5750770585645028631916
+// Maximal objective value:  64.5750770585645028631916
+// Relative error = 0
+// Distance to polytope: 1.6409282e-14
+//------------------------------------------------------------------------------
 
-/*============================== sc50b LP problem ============================*
+/*============================== sc50b LP problem ==============================*
 // Number of equations: 20
 // Subspace dimension: 28
 #define PP_PROBLEM_NAME		"sc50b"
 #define PP_M 48	// Number of constraints
 #define PP_N 48	// Number of variables
 #define PP_MAX_OBJ_VALUE 70	// Exact maximum value of objective function
-//--------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-11	// Accuracy of belonging to hyperplane
-//--------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-11	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-11	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-7	// Acceptable error for optimum of objective function
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR			1E+7	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- lp_sc50b_v - 47.8109419.mtx -----------------------
 // Elapsed time: 0
 // Number of iterations: 1
 // Computed objective value: 70
 // Maximal objective value:  70
 // Relative error = 0
 // Distance to polytope: 5.4835683e-14
+//-------------------------- lp_sc50b_v - zero.mtx -----------------------------
+// Elapsed time: 0
+// Number of iterations: 9
+// Computed objective value: 70
+// Maximal objective value:  70
+// Relative error = 0
+// Distance to polytope: 4.9227845e-14
+//------------------------------------------------------------------------------
+
+/*============================== scagr7 LP problem =============================*
+// Number of equations: 84
+// Subspace dimension : 56
+#define PP_PROBLEM_NAME	"scagr7"
+#define PP_M 129		// Number of constraints in mps-file
+#define PP_N 140		// Number of variables in mps-file
+#define PP_MAX_OBJ_VALUE 2331389.824330984	// Exact maximum value of objective function
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-4	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function 
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR			1E+2	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_scagr7_v_2286110.99.mtx ------------------------
+// Elapsed time: 0
+// Number of iterations: 20
+// Computed objective value: 2331389.82436909852549434
+// Maximal objective value:  2331389.8243309841491282
+// Relative error = 1.63e-11
+// Distance to polytope: 2.5786183e-08
+//-------------------------- lp_scagr7_v - VeRSAl.mtx --------------------------
+// Process is cycling!
+// Elapsed time: 0
+// Number of iterations: 27
+// Computed objective value: 2302137.4943267684429884
+// Maximal objective value:  2331389.8243309841491282
+// Relative error = 0.0125
+// Distance to polytope: 4.067384e-13
+//------------------------------------------------------------------------------
+
+/*============================== scsd1 LP problem =============================*
+// Number of equations: 77
+// Subspace dimension : 683
+#define PP_PROBLEM_NAME	"scsd1"
+#define PP_M 77		// Number of constraints in mps-file
+#define PP_N 760	// Number of variables in mps-file
+#define PP_MAX_OBJ_VALUE -8.6666666743333647292533502995263	// Exact maximum value of objective function
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-6	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-5	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function 
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR			1E+8	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_scsd1_v - VeRSAl.mtx ---------------------------
+// Elapsed time: 28
+// Number of iterations: 83
+// Computed objective value: -8.66666667433336002090982
+// Maximal objective value:  -8.66666667433336534998034
+// Relative error = 6.15e-16
+// Distance to polytope: 1.0871497e-15
+//------------------------------------------------------------------------------
+
+/*============================== share1b LP problem ============================*
+// Number of equations: 89
+// Subspace dimension: 136
+#define PP_PROBLEM_NAME		"share1b"
+#define PP_M 117	// Number of constraints in *.mps
+#define PP_N 225	// Number of variables in *.mps
+#define PP_MAX_OBJ_VALUE 76589.31857918568112797274346007 // Exact maximum value of objective function
 //--------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-5	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-6	// Acceptable error for optimum of objective function
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR			1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_share1b_v - VeRSAl.mtx -------------------------
+// Process is cycling!
+// Elapsed time: 5
+// Number of iterations: 83
+// Computed objective value: 69661.7464558375941123813
+// Maximal objective value:  76589.3185791856813011691
+// Relative error = 0.0905
+// Distance to polytope: 3.8461543e-06
+//------------------------------------------------------------------------------
 
 /*============================== share2b LP problem ============================*
 // Number of equations: 13
@@ -385,55 +570,61 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 79	// Number of variables in *.mps
 #define PP_MAX_OBJ_VALUE 415.732240741419486545199108738 // Exact maximum value of objective function
 //--------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
-//------------------------------------------------------------------------------
-// Elapsed time: 0
-// Number of iterations: 8
-// Computed objective value: 415.732256237170588519803
-// Maximal objective value:  415.732240741419502683129
-// Relative error = 3.73e-08
-// Distance to polytope: 1.3048846e-07
-//------------------------------------------------------------------------------
-
-/*============================== scagr7 LP problem =============================*
-// Number of equations : 84
-// Subspace dimension : 56
-#define PP_PROBLEM_NAME	"scagr7"
-#define PP_M 129		// Number of constraints in mps-file
-#define PP_N 140		// Number of variables in mps-file
-#define PP_MAX_OBJ_VALUE 2331389.824330984	// Exact maximum value of objective function
-//------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-7	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-9	// Accuracy of belonging to hyperplane
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
 //------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
-#define PP_SCALE_FACTOR				1E+2	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
-//------------------------------------------------------------------------------
+#define PP_SCALE_FACTOR			1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- lp_share2b_v - 414.421853.mtx -------------------------
+#undef PP_EPS_ON_HYPERPLANE				// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-7	// Accuracy for comparison with zero
+#undef PP_EPS_RELATIVE_ERROR			// Accuracy for comparison with zero
+#define PP_EPS_RELATIVE_ERROR	1E-7	// Acceptable error for optimum of objective function
 // Elapsed time: 0
-// Number of iterations: 30
-// Computed objective value: 2331389.82436896860599518
-// Maximal objective value:  2331389.8243309841491282
-// Relative error = 1.63e-11
-// Distance to polytope: 3.8679237e-08
+// Number of iterations: 7
+// Computed objective value: 415.732256190844054799527
+// Maximal objective value:  415.732240741419502683129
+// Relative error = 3.72e-08
+// Distance to polytope: 4.7885725e-08
+//-------------------------- lp_share2b_v - VeRSAl.mtx -------------------------
+// Elapsed time: 0
+// Number of iterations: 24
+// Computed objective value: 415.732240741420582708088
+// Maximal objective value:  415.732240741419502683129
+// Relative error = 2.6e-15
+// Distance to polytope: 1.156e-13
 //------------------------------------------------------------------------------
 
-/*============================== stocfor1 LP problem ============================*
+/*============================== stocfor1 LP problem ============================*/
 // Number of equations: 63
 // Subspace dimension: 48
 #define PP_PROBLEM_NAME		"stocfor1"	
 #define PP_M 117	// Number of constraints in mps-file
 #define PP_N 111	// Number of variables in mps-file
 #define PP_MAX_OBJ_VALUE 41131.976219436406065682760731514 // Exact maximum value of objective function
-//--------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Accuracy for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		12	// Precision for point to be in halfspace
 //------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-9	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-7	// Precision for point to be in halfspace
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
+//------------------------------ ifdef PP_SAVE_ITER_RESULT ---------------------
+#define PP_SCALE_FACTOR			1E+4	// #ifdef PP_SAVE_LOCAL_RESULT; makes 9 digits before the decimal point of PP_MAX_OBJ_VALUE
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_DEGENERATE
+//-------------------------- lp_stocfor1_v - 25468.6697.mtx --------------------
+// Process is cycling!
 // Elapsed time: 0
-// Number of iterations: 57
-// Computed objective value: 41131.9762194380891742185
+// Number of iterations: 11
+// Computed objective value: 25468.6697284812726138625
 // Maximal objective value:  41131.9762194364084280096
-// Relative error = 4.09e-14
-// Distance to polytope: 2.4025777e-12
+// Relative error = 0.381
+// Distance to polytope: 1.4961e-12
+//-------------------------- lp_stocfor1_v - VeRSAl.mtx ------------------------
+// Elapsed time: 0
+// Number of iterations: 24
+// Computed objective value: 41131.9762194367867778055
+// Maximal objective value:  41131.9762194364084280096
+// Relative error = 9.2e-15
+// Distance to polytope: 1.8551e-12
 //------------------------------------------------------------------------------
 
 //==============================================================================*/

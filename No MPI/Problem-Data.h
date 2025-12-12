@@ -17,10 +17,11 @@ static PT_column_T PD_b;			// Column of constant terms (right-hand parts)
 static PT_vector_T PD_c;			// Gradient of Objective Function
 //========================== Algorithm variables ===============================
 static int PD_meq;			// Number of total constraints being equations
-static int PD_meq_basis;			// Number of basic constraints being equations
+static int PD_meq_basis;	// Number of basic constraints being equations
 static int PD_subspaceDim;	// Dimension of of support subspace (PD_n = PD_subspaceDim + PD_meq_basis)
-static int PD_iterNo;				// Number of iterations
-static double PD_objF_v;			// Objective function value in curerent point
+static int PD_iterNo;		// Number of iterations
+static double PD_objF_v;	// Objective function value in curerent point
+static double PD_relativeError;
 //========================== Algorithm structures ================================
 static PT_vector_T PD_hi;			// Higher bound
 static PT_vector_T PD_lo;			// Lower bound
