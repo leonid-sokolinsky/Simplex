@@ -40,15 +40,14 @@ This source code has been produced with using BSF-skeleton
 #define PP_METHOD_NAME "Simplex noMPI"
 
 //-------------------------- Compilation Modes ---------------------------------
-#define PP_DEBUG
 //#define PP_MATRIX_OUTPUT
+//#define PP_SAVE_BASIS
 //#define PP_SAVE_ITER_RESULT
 //#define PP_SAVE_RESULT
-#define PP_SF_LIST_I_BASIS_GAUGE
+//#define PP_BASIS_GAUGE
 
 //================================ Problem Paramrters ==========================
 #define PP_MM							(PP_M+2*PP_N)	// Maximal number of constraints
-#define PP_EPS_JUMP_VECTOR_LEN			1E-3			// Minimum acceptable length of the jump vector
 //-------------------------- Input/Outpoot Parameters --------------------------
 #define PP_OUTPUT_LIMIT	30	// Number of Elements to output
 #define PP_SETW 16
@@ -70,7 +69,3 @@ This source code has been produced with using BSF-skeleton
 #define PP_MAX_NUMBER_OF_COLS	(PP_N*(PP_M+1)+1)
 //-------------------------- Jobs  -----------------------
 // Not used.
-//------------- Locations -------------
-#define PP_ON_HYPERPLANE			1
-#define PP_INSIDE_HALFSPACE			2
-#define PP_OUTSIDE_HALFSPACE		3

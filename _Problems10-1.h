@@ -19,7 +19,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //============================== Problem Parameters =============================
 // PP_OBJECTIVE_VECTOR_LENGTH - direct dependence on dimension PD_n.
 // P_EPS_ZERO - inverse dependence on PP_OBJECTIVE_VECTOR_LENGTH.
-//------------------------------ ifdef PP_DEBUG --------------------------------
+//------------------------------ ifdef _DEBUG --------------------------------
 #define PP_PROJECTION_COUNT				100000				// Each PP_PROJECTION_COUNT iteration to be outputted inside Flat_MaxProjection(*)
 
 //-----------------------------------------------------------------------------

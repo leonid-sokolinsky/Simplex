@@ -10,6 +10,11 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 ================================================================================*/
 #pragma once
 
+//=========================== problem Parameters ===============================
+#define PP_EPS_RELATIVE_ERROR	1E-8	// Acceptable error for optimum of objective function
+#define PP_GRADIENT
+//==============================================================================
+
 /*============================== angle03 LP problem ============================*
 #define PP_PROBLEM_NAME	"angle03"
 #define PP_M 3		// Number of equations (number of rows in *.mtx)
@@ -103,9 +108,9 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_N 4		// Number of variables
 #define PP_MAX_OBJ_VALUE 		90000
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
-#define PP_EPS_PROJECTION			1E-10	// Accuracy of belonging to hyperplane
-#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO				1E-11	// Precision for comparison with zero
+#define PP_EPS_PROJECTION		1E-10	// Accuracy of belonging to hyperplane
+#define PP_EPS_ON_HYPERPLANE	1E-9	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 3
@@ -129,6 +134,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#define PP_LOAD_BASIS
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 4
@@ -149,7 +156,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //-------------------------- Compilation Modes ---------------------------------
-#define PP_GRADIENT
+#define PP_LOAD_BASIS
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 3
@@ -169,8 +176,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
-//-------------------------- Compilation Modes ---------------------------------
-#define PP_GRADIENT
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 3
@@ -284,11 +289,11 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== rnd3_3_Olkhovsky331 LP problem ================*
+/*============================== rnd3_3_Olkhovsky331 LP problem ================*/
 #define PP_PROBLEM_NAME	"rnd3_3_Olkhovsky331"
 #define PP_M 6		// Number of equations (number of rows in *.mtx)
 #define PP_N 9		// Number of variables (number of cols in *.mtx)
-#define PP_MAX_OBJ_VALUE 441.843642611683833365532
+#define PP_MAX_OBJ_VALUE 441.843642611683890208951
 //------------------------------------------------------------------------------
 // https://sagecell.sagemath.org/
 // p = Polyhedron(ieqs = [[200,-1,0,0],[200,0,-1,0],[200,0,0,-1],[31312,-64,-90,-63],[8324,-25,-30,-4],[56572,-168,-18,-173],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
@@ -299,8 +304,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 5
-// Computed objective value: 441.843642611683833365532
-// Maximal objective value:  441.843642611683833365532
+// Computed objective value: 441.843642611683890208951
+// Maximal objective value:  441.843642611683890208951
 // Relative error = 0
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
@@ -330,15 +335,15 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_PROBLEM_NAME	"rnd3-10"
 #define PP_M 13		// Number of equations (number of rows in *.mtx)
 #define PP_N 16		// Number of variables (number of cols in *.mtx)
-#define PP_MAX_OBJ_VALUE 397.938973646311296761269
+#define PP_MAX_OBJ_VALUE 397.93897364631123991785
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
 // Elapsed time: 0
 // Number of iterations: 5
-// Computed objective value: 397.938973646311296761269
-// Maximal objective value:  397.938973646311296761269
+// Computed objective value: 397.93897364631123991785
+// Maximal objective value:  397.93897364631123991785
 // Relative error = 0
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
@@ -347,7 +352,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_PROBLEM_NAME	"rnd5-100"
 #define PP_M 105		// Number of equations (number of rows in *.mtx)
 #define PP_N 110		// Number of variables (number of cols in *.mtx)
-#define PP_MAX_OBJ_VALUE 617.504337008263746611192
+#define PP_MAX_OBJ_VALUE  617.504337008263632924354
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
@@ -620,7 +625,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 1.4210855e-14
 //------------------------------------------------------------------------------
 
-/*============================== wiki LP problem ===============================*/
+/*============================== wiki LP problem ===============================*
 #define PP_PROBLEM_NAME	"wiki"
 #define PP_MPS_FORMAT
 #define PP_M 2		// Number of constrains

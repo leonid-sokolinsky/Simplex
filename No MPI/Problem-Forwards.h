@@ -9,36 +9,39 @@ This source code has been produced with using BSF-skeleton
 #include "Problem-Types.h"
 //====================== Private Functions =====================================
 namespace PF {
+	void	AddToBasis(int i, int* basis, int m_basis, bool* success, double eps_zero);
 	void	Lambda(PT_vector_T v, PT_vector_T y, double* lambda_min, int* j_star, double eps_zero);
+	void	LoadBasis(PT_vector_i_T basis, bool* success);
 	void	Make_y(PT_vector_i_T basis_v, int i_star, PT_vector_T y);
-	void	MakeBasis_v(PT_vector_T v, PT_vector_i_T basis_v, double epsZero, double epsOnHyperplane);
+	void	MakeBasis_v(int* neHyperplanes_v, int mne_v, int meq_basis, int* basis_v, double eps_zero);
+	void	MakeEquationsBasis(int* basis, int* meq_basis, double eps_zero);
+	void	MakeRndBasis_v(int* neHyperplanes_v, int mne_v, int meq, int* edgeBasis_v, double eps_zero);
 	bool	NegativeNotFoundIn_u(double eps_zero);
+	bool	PointIsVertex(PT_vector_T v, double eps_zero, double eps_on_hyperplane);
 	void	PreparationForIteration(PT_vector_i_T basis_v);
+	void	SaveBasis(PT_vector_i_T basis);
 }
 //====================== Shared Functions ======================================
 namespace SF {
 	unsigned long long BinomialCoefficient(int n, int k);
 	void	Bitscale_Create(bool* bitscale, int m, int* hyperplanes, int mh);
+	void	Bitscale_False(bool* bitscale, int m);
 	void	Column_Zeroing(PT_vector_T u);
 	double	Distance_PointToHalfspace_i(PT_vector_T x, int i);
 	double	Distance_PointToHyperplane_i(PT_vector_T x, int i);
 	double	Distance_PointToPoint(PT_vector_T x, PT_vector_T y);
 	double	Distance_PointToPolytope(PT_vector_T x);
 	double	DistanceSQR_PointToPoint(PT_vector_T x, PT_vector_T y);
-	void	Flat_BipProjection(int* flatHyperplanes, int m_flat, PT_vector_T v, double eps_projection, int maxProjectingIter, PT_vector_T w, int* exitCode);
-	void	Flat_MaxProjection(int* flatHyperplanes, int m_flat, PT_vector_T v, double eps_projection, int maxProjectingIter, PT_vector_T w, int* exitCode);
-	void	JumpingOnPolytope(PT_vector_T startPoint, PT_vector_T direcionVector, PT_vector_T finishPoint, double eps_jump_vector_len, double eps_on_hyperplane, double eps_zero, bool* parallelHPlanes, int* exitCode);
 	void	List_equations(bool* isEquation, int* equationsList, int* equationCount);
-	void	List_i_Basis(int* list_i, int* mi, double eps_zero);
 	void	List_inequalities(bool* isEquation, int* inequalitiesList, int* inequalitiesCount);
-	void	List_neHyperplanes_x(PT_vector_T x, int* neHyperplanes, int mneh, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
+	void	List_neHyperplanes_v(PT_vector_T x, int* neHyperplanes, int mneh, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
 	void	MakeColumnOfNorms(PT_matrix_T A, PT_column_T norm_a);
 	void	MakeListOfNotIncludingHalfspaces(PT_vector_T x, int* notIncludingHalfspacesList, double eps);
 	void	MakeNeHyperplane_x(PT_vector_T x, int* neHyperplanes_all, int mneh_all, int* neHyperplanes_x, int* mneh_x, double eps_on_hyperplane);
-	void	Matrix_Basis(int* list_i, int* mi, double eps_zero);
+	void	Matrix_Basis(int* list_i, int* mi, double eps_inverse);
 	void	Matrix_CopyToD(int* list_i, int count);
 	void	Matrix_Normalize(void);
-	void	Matrix_Rank(int* list_i, int mi, double eps_zero, int* rank);
+	void	Matrix_Rank(int* list_i, int mi, int* rank, double eps_inverse);
 	bool	MPS___Load_Problem();
 	bool	MPS__MakeProblem(PT_MPS_row_T* row, int n_row, PT_MPS_column_T* column, int n_col, double* loBound, PT_MPS_upBound_T* upBounds, int n_up, PT_MPS_fxVariable_T* fxVariable, int n_fx);
 	bool	MPS__ReadBounds(FILE* stream, PT_MPS_column_T* column, int n_col, double* loBound, PT_MPS_upBound_T* upBound, int* n_up, PT_MPS_fxVariable_T* fxVariable, int* n_fx);
@@ -70,9 +73,11 @@ namespace SF {
 	bool	MTX_Load_c();
 	bool	MTX_Load_hi();
 	bool	MTX_Load_lo();
-	bool	MTX_LoadPoint(PT_vector_T x, string postfix);
+	bool	MTX_LoadVector(PT_vector_T x, string postfix);
+	bool	MTX_LoadVector_i(PT_vector_i_T x, string postfix);
 	void	MTX_RemoveFreeVariables(void);
-	bool	MTX_SavePoint(PT_vector_T x, string postfix);
+	bool	MTX_SaveVector(PT_vector_T x, string postfix);
+	bool	MTX_SaveVector_i(PT_vector_i_T x, string postfix);
 	void	MTX_SkipComments(FILE* stream);
 	int		Number_IncludingNeHyperplanes(PT_vector_T x, double eps_on_hyperplane);
 	double	ObjF(PT_vector_T x);
@@ -83,14 +88,11 @@ namespace SF {
 	bool	PointBelongsToPolytope(PT_vector_T x, double eps_on_hyperplane);
 	bool	PointInsideHalfspace_i(PT_vector_T x, int i, double eps_on_hyperplane);
 	bool	PointIsBoundary(PT_vector_T x, double eps_on_hyperplane);
-	bool	PointIsVertex(PT_vector_T v, int* hyperplanes_v, int mh_v, double eps_zero);
-	int		PointLocation_i(PT_vector_T x, int i, double eps, double* a_DoT_x_MinuS_b);
 	void	Print_Constraints();
 	void	Print_HalfspacesIncludingPoint(PT_vector_T x, double eps_on_hyperplane);
 	void	Print_HalfspacesOutOfPoint(PT_vector_T x, double eps_on_hyperplane);
 	void	Print_HyperplanesIncludingPoint(PT_vector_T x, double eps_on_hyperplane);
 	double	RelativeError(double trueValue, double calculatedValue);
-	void	Shift(PT_vector_T point, PT_vector_T shiftVector, double factor, PT_vector_T shiftedPoint);
 	void	Tuning_Eps_PointBelongsToFlat(PT_vector_T x, int* hyperplaneList, int hyperplaneCount, double* eps);
 	void	Tuning_Eps_PointBelongsToPolytope(PT_vector_T x, double* eps);
 	int		TWIDDLE__BinomialCoefficient(int n, int k, int* p);
@@ -103,13 +105,13 @@ namespace SF {
 	void	Vector_CopyNegative(PT_vector_T x, PT_vector_T y);
 	void	Vector_DivideByNumber(PT_vector_T x, double r, PT_vector_T y);
 	void	Vector_DivideEquals(PT_vector_T x, double r);
+	void	Vector_EpsZero(PT_vector_T x, double eps_zero);
 	bool	Vector_Equal(PT_vector_T x, PT_vector_T y);
 	double	Vector_DotProduct(PT_vector_T x, PT_vector_T y);
 	void	Vector_i_Copy(PT_vector_i_T fromVector, PT_vector_i_T toVector);
+	bool	Vector_i_Equal(PT_vector_i_T x, PT_vector_i_T y);
 	void	Vector_i_Print(PT_vector_i_T x);
-	void	Vector_MakeLike(PT_vector_T x, double lengthOfLikeVector, PT_vector_T likeVector);
 	void	Vector_MakeMinus_e(PT_vector_T minus_e);
-	void	Vector_Median(PT_vector_T x, double length);
 	void	Vector_MinusEquals(PT_vector_T equalPoint, PT_vector_T minusVector);
 	void	Vector_MultiplyByNumber(PT_vector_T x, double r, PT_vector_T y);
 	void	Vector_MultiplyEquals(PT_vector_T x, double r);
@@ -117,8 +119,7 @@ namespace SF {
 	double	Vector_Norm(PT_vector_T x);
 	double	Vector_NormSquare(PT_vector_T x);
 	void	Vector_PlusEquals(PT_vector_T equalVector, PT_vector_T plusVector);
-	void	Vector_Print(PT_vector_T x);
-	void	Vector_Random(PT_vector_T x, int seed);
+	void	Vector_Print(PT_vector_T x, double eps_zero);
 	void	Vector_Round(PT_vector_T x, double eps);
 	void	Vector_SetValue(PT_vector_T x, double v);
 	void	Vector_Subtraction(PT_vector_T x, PT_vector_T y, PT_vector_T z);

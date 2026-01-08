@@ -25,7 +25,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)		// Accuracy of belonging to hyperplane
 #define PP_EPS_ON_HYPERPLANE		(PP_EPS_PROJECTION*100)	// Accuracy of belonging to hyperplane
 #define PP_OBJECTIVE_VECTOR_LENGTH	1E+7					// Length of Objective Vector
-//------------------------------ ifdef PP_DEBUG --------------------------------
+//------------------------------ ifdef _DEBUG --------------------------------
 #define PP_PROJECTION_COUNT			100000000	// Each PP_PROJECTION_COUNT-th iteration to be outputted inside Flat_MaxProjection(*) or Flat_BipProjection(*)
 //==============================================================================
 
@@ -37,7 +37,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 1009900 // =200*(n-1)*(2+n)/2+100
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_MAXPROJECTION
-//------------------------------ ifdef PP_DEBUG --------------------------------
+//------------------------------ ifdef _DEBUG --------------------------------
 #define PP_ITER_COUNT			10				// Each PP_ITER_COUNT-th iteration to be outputted inside PC_bsf_MapF(*)
 #define PP_PROJECTION_COUNT		1000000			// Each PP_PROJECTION_COUNT iteration to be outputted inside Flat_MaxProjection(*)
 //------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 4019900
 //-------------------------- Compilation Modes ---------------------------------
 #define PP_MAXPROJECTION
-//------------------------------ ifdef PP_DEBUG --------------------------------
+//------------------------------ ifdef _DEBUG --------------------------------
 #define PP_ITER_COUNT			10				// Each PP_ITER_COUNT-th iteration to be outputted inside PC_bsf_MapF(*)
 #define PP_PROJECTION_COUNT		1000000			// Each PP_PROJECTION_COUNT iteration to be outputted inside Flat_MaxProjection(*)
 //-----------------------------------------------------------------------------
