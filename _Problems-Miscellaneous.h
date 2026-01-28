@@ -74,6 +74,27 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
+/*============================== cone3-6-1 LP problem ==========================*
+#define PP_PROBLEM_NAME	"cone3-6-1"
+#define PP_M 15		// Number of equations (number of rows in *.mtx)
+#define PP_N 18		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 600
+//------------------------------------------------------------------------------
+// https://sagecell.sagemath.org/
+// p = Polyhedron(ieqs = [[200,-1,0,0],[200,0,-1,0],[200,0,0,-1],[500,-1,-1,-1],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+// p.plot()
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 6
+// Computed objective value: 600
+// Maximal objective value:  600
+// Relative error = 0
+// Distance to polytope: 4.970508e-16
+//------------------------------------------------------------------------------
+
 /*============================== cube LP problem ===============================*
 #define PP_MPS_FORMAT
 #define PP_PROBLEM_NAME	"cube"
@@ -289,7 +310,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== rnd3_3_Olkhovsky331 LP problem ================*/
+/*============================== rnd3_3_Olkhovsky331 LP problem ================*
 #define PP_PROBLEM_NAME	"rnd3_3_Olkhovsky331"
 #define PP_M 6		// Number of equations (number of rows in *.mtx)
 #define PP_N 9		// Number of variables (number of cols in *.mtx)
@@ -646,6 +667,26 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Maximal objective value:  20
 // Relative error = 0
 // Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== zieglerC4_8 LP problem ===============================*/
+#define PP_PROBLEM_NAME	"zieglerC4_8"
+#define PP_MPS_FORMAT
+#define PP_M 20		// Number of constrains
+#define PP_N 4		// Number of variables
+#define PP_MAX_OBJ_VALUE 2800
+// Example 0.6. [Ziegler G.M. Lectures on Polytopes. New York, NY: Springer New York, 1995. Vol. 152. XI, 370 p. 
+// DOI:https://doi.org/10.1007/978-1-4613-8431-1]
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 11
+// Computed objective value: 2800.00000000000454747351
+// Maximal objective value:  2800
+// Relative error = 1.62e-15
+// Distance to polytope: 5.0313447e-17
 //------------------------------------------------------------------------------
 
 /*==============================================================================*/

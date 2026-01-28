@@ -14,7 +14,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 
 //=========================== Problem Parameters ===============================
 #define PP_GRADIENT
-#define PP_NORMALIZATION
 
 /*============================== adlittle LP problem ===========================*
 // Number of equations: 15
@@ -80,7 +79,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 2.565356e-09
 //------------------------------------------------------------------------------
 
-/*============================== agg2 LP problem ===============================*
+/*============================== agg2 LP problem ===============================*/
 // Number of equations : 60
 // Subspace dimension : 242
 #define PP_PROBLEM_NAME		"agg2"
@@ -135,7 +134,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 1.8296349e-12
 //------------------------------------------------------------------------------
 
-/*============================== blend LP problem ==============================*/
+/*============================== blend LP problem ==============================*
 // Number of equations: 43
 // Subspace dimension: 40
 #define PP_PROBLEM_NAME		"blend"

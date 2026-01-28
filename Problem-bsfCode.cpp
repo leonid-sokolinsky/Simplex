@@ -241,6 +241,13 @@ void PC_bsf_MapF(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T* reduceElem, int
 		return;
 	}
 
+	/**
+	#ifdef _DEBUG
+	cout << "reduceElem->v_nex = ";
+	Vector_Print(reduceElem->v_nex, PP_EPS_ZERO);
+	cout << "reduceElem->objF_nex = " << reduceElem->objF_nex << "\t reduceElem->objF_grd = " << reduceElem->objF_grd << endl;
+	#endif // _DEBUG /**/
+
 } // end PC_bsf_MapF
 
 void PC_bsf_MapF_1(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T_1* reduceElem, int* success) {
@@ -446,9 +453,11 @@ void PC_bsf_ProcessResults(PT_bsf_reduceElem_T* reduceResult, int reduceCounter,
 	Vector_Copy(reduceResult->v_nex, parameter->v);
 	Vector_i_Copy(PD_basis_v, parameter->basis_v);
 
+	#ifdef PP_ITER_OUTPUT
 	cout << "_________________________________________________ " << PD_iterNo << " _____________________________________________________" << endl;
 	cout << "ObjF = " << setprecision(18) << PD_objF_v << endl << setprecision(PP_SETW / 2);
 	cout << "Jump length = " << jumpLength << endl;
+	#endif // PP_ITER_OUTPUT
 
 	#ifdef _DEBUG
 	cout << "Distance to polytope: " << Distance_PointToPolytope(PD_v) << endl;
@@ -3056,20 +3065,6 @@ namespace PF {
 		}/* end debugging */
 		assert(success);
 	
-		/* PreparationForIteration **
-		#ifdef _DEBUG
-		for (int i = 0; i < _n; i++)
-			for (int j = 0; j < _n; j++) {
-				double s = 0;
-				for (int k = 0; k < _n; k++)
-					s = s + PD_A0[i][k] * PD_A0I[k][j];
-				if (i == j)
-					assert(fabs(s - 1) <= PP_EPS_ZERO);
-				else
-					assert(fabs(s) <= PP_EPS_ZERO);
-			}
-		#endif _DEBUG /**/
-
 		Pre_Make_cA0I(cA0I);
 		Pre_Make_u(basis_v, cA0I, PP_EPS_ZERO);
 	}

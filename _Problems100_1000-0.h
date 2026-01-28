@@ -15,19 +15,33 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //#define PP_GRADIENT
 //------------------------------------------------------------------------------
 #define PP_EPS_RELATIVE_ERROR			1E-11			// Used if defined PP_CHECK_MAX_OBJ_VALUE 
-#define PP_MAX_PSEUDOPROJECTING_ITER	100000000		// Maximum acceptable number of iterations in Pseudoprojection on flat
 
 //============================== Problem Parameters ============================
 // PP_OBJECTIVE_VECTOR_LENGTH - direct dependence on dimension PD_n.
 // P_EPS_ZERO - inverse dependence on PP_OBJECTIVE_VECTOR_LENGTH.
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11					// Accuracy for comparison with zero
-#define PP_EPS_PROJECTION			(PP_EPS_ZERO*10)		// Accuracy of belonging to hyperplane
-#define PP_EPS_ON_HYPERPLANE		(PP_EPS_PROJECTION*100)	// Accuracy of belonging to hyperplane
-#define PP_OBJECTIVE_VECTOR_LENGTH	1E+7					// Length of Objective Vector
-//------------------------------ ifdef _DEBUG --------------------------------
-#define PP_PROJECTION_COUNT			100000000	// Each PP_PROJECTION_COUNT-th iteration to be outputted inside Flat_MaxProjection(*) or Flat_BipProjection(*)
+//#define PP_EPS_ZERO					1E-11				// Accuracy for comparison with zero
+//#define PP_EPS_ON_HYPERPLANE		(PP_EPS_ZERO*1000)	// Accuracy of belonging to hyperplane
 //==============================================================================
+
+/*============================== cone100-1000-1 LP problem =========================*/
+#define PP_PROBLEM_NAME	"cone100-1000-1"
+#define PP_M	2100		// Number of equations (number of rows in *.mtx)
+#define PP_N	2200		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 20000 
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+#define PP_MIN_COS				0.8		// Minimum allowable cosine of angle between launch vector and direction vector
+#define PP_LAUNCH_VECTOR_LENGTH	1E+8	// Length of Objective Vector
+//------------------------------------------------------------------------------
+// Elapsed time: 9.3181261 (MPI)
+// Number of iterations: 919
+// Computed objective value: 20000
+// Maximal objective value:  20000
+// Relative error = 0
+// Distance to polytope: 2.1884716e-12
+//------------------------------------------------------------------------------
 
 /*============================== rnd100-0 LP problem ===========================*
 #define PP_PROBLEM_NAME	"rnd100-0"
@@ -46,6 +60,45 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Computed objective value: 1009900
 // Maximal objective value:  1009900
 // Relative error = 0
+//------------------------------------------------------------------------------
+
+/*============================== rnd100-10-1 LP problem =========================*
+#define PP_PROBLEM_NAME	"rnd100-10-1"
+#define PP_KK	100		// Maximal number of edges that include surface point (compilator limit: 2 147 483 647)
+#define PP_M	110		// Number of equations (number of rows in *.mtx)
+#define PP_N	210		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 770948.875353609793819487 
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_INVERSE			1E-10	// Accuracy for comparison with zero when calculating inverse matrix
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+#define PP_MIN_COS				0.8		// Minimum allowable cosine of angle between launch vector and direction vector
+#define PP_LAUNCH_VECTOR_LENGTH	1E+6	// Length of Objective Vector
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 64
+// Computed objective value: 770948.875353609793819487
+// Maximal objective value:  770948.875353609793819487
+// Relative error = 0
+// Distance to polytope: 1.9700285e-16
+//------------------------------------------------------------------------------
+
+/*============================== rnd100-100 LP problem =========================*
+#define PP_PROBLEM_NAME	"rnd100-100"
+#define PP_KK	100		// Maximal number of edges that include surface point (compilator limit: 2 147 483 647)
+#define PP_M	200		// Number of equations (number of rows in *.mtx)
+#define PP_N	300		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 751657.607965730829164386 
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 0
+// Number of iterations: 90
+// Computed objective value: 751657.607965730829164386
+// Maximal objective value:  751657.607965730829164386
+// Relative error = 0
+// Distance to polytope: 2.8421709e-13
 //------------------------------------------------------------------------------
 
 /*============================== rnd150-0 LP problem ===========================*
@@ -101,7 +154,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 64079900
 //-----------------------------------------------------------------------------
 
-/*============================== tcube1K LP problem =========================*/
+/*============================== tcube1K LP problem =========================*
 #define PP_PROBLEM_NAME	"tcube1K" // Truncated hypercube
 #define PP_KK	1000		// Maximal number of edges that include surface point (compilator limit: 2 147 483 647)
 #define PP_M	1001		// Number of equations (number of rows in *.mtx)
