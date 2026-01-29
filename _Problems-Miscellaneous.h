@@ -53,6 +53,31 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
+/*============================== C5_10 LP problem ===============================*/
+#define PP_PROBLEM_NAME	"C5_10"
+#define PP_MPS_FORMAT
+#define PP_M 42		// Number of constrains
+#define PP_N 5		// Number of variables
+#define PP_MAX_OBJ_VALUE 66429
+// Ciclic polytope C_5(10)  
+// Grunbaum B. Convex Polytopes. 2nd ed. / ed. Kaibel V., Klee V., Ziegler G.M. New York, NY: Springer, 2003. XVI, 471 p. 
+// DOI: https://doi.org/10.1007/978-1-4613-0019-9
+//------------------------------------------------------------------------------
+// https://sagecell.sagemath.org/
+// P = Polyhedron(vertices=[[0,0,0,0,0], [1,1,1,1,1], [2,4,8,16,32], [3,9,27,81,243], [4,16,64,256,1024], [5,25,125,625,3125], [6,36,216,1296,7776], [7,49,343,2401,16807],[8,64,512,4096,32768],[9,81,729,6561,59049]])
+// print(P.inequalities())
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-9	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-9	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time:  0.00016689999
+// Number of iterations: 14
+// Computed objective value: 66428.999999991909135133
+// Maximal objective value:  66429
+// Relative error = 1.22e-13
+// Distance to polytope: 4.0126575e-17
+//------------------------------------------------------------------------------
+
 /*============================== cone3-0 LP problem ============================*
 #define PP_PROBLEM_NAME	"cone3-0"
 #define PP_M 11		// Number of equations (number of rows in *.mtx)
@@ -669,7 +694,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== zieglerC4_8 LP problem ===============================*/
+/*============================== zieglerC4_8 LP problem ===============================*
 #define PP_PROBLEM_NAME	"zieglerC4_8"
 #define PP_MPS_FORMAT
 #define PP_M 20		// Number of constrains
