@@ -13,11 +13,11 @@ namespace PF {
 	void	Lambda(PT_vector_T v, PT_vector_T y, double* lambda_min, int* j_star, double eps_zero);
 	void	LoadBasis(PT_vector_i_T basis, bool* success);
 	void	Make_y(PT_vector_i_T basis_v, int i_star, PT_vector_T y);
-	void	MakeBasis_v(int* neHyperplanes_v, int mne_v, int meq_basis, int* basis_v, double eps_zero);
+	void	MakeBasis_v(int* neHyperplanes_v, int mne_v, int meq_basis, int* basis_v, double eps_inverse);
 	void	MakeEquationsBasis(int* basis, int* meq_basis, double eps_zero);
-	void	MakeRndBasis_v(int* neHyperplanes_v, int mne_v, int meq, int* edgeBasis_v, double eps_zero);
+	void	MakeRndBasis_v(int* neHyperplanes_v, int mne_v, int meq, int* edgeBasis_v, double eps_inverse);
 	bool	NegativeNotFoundIn_u(double eps_zero);
-	bool	PointIsVertex(PT_vector_T v, double eps_zero, double eps_on_hyperplane);
+	bool	PointIsVertex(PT_vector_T v, double eps_inverse, double eps_on_hyperplane);
 	void	PreparationForIteration(PT_vector_i_T basis_v);
 	void	SaveBasis(PT_vector_i_T basis);
 }

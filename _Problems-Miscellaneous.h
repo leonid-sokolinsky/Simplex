@@ -53,7 +53,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== C5_10 LP problem ===============================*/
+/*============================== C5_10 LP problem ===============================*
 #define PP_PROBLEM_NAME	"C5_10"
 #define PP_MPS_FORMAT
 #define PP_M 42		// Number of constrains
@@ -69,6 +69,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO				1E-9	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE	1E-9	// Accuracy of belonging to hyperplane
+//-------------------------- Compilation Modes ---------------------------------
+#undef PP_GRADIENT
 //------------------------------------------------------------------------------
 // Elapsed time:  0.00016689999
 // Number of iterations: 14
@@ -377,21 +379,21 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Distance to polytope: 0
 //------------------------------------------------------------------------------
 
-/*============================== rnd3-10 LP problem ============================*
+/*============================== rnd3-10 LP problem ============================*/
 #define PP_PROBLEM_NAME	"rnd3-10"
 #define PP_M 13		// Number of equations (number of rows in *.mtx)
 #define PP_N 16		// Number of variables (number of cols in *.mtx)
-#define PP_MAX_OBJ_VALUE 397.93897364631123991785
+#define PP_MAX_OBJ_VALUE 397.938973646311296761269
 //------------------------------------------------------------------------------
-#define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
-#define PP_EPS_ON_HYPERPLANE		1E-9	// Accuracy of belonging to hyperplane
+#define PP_EPS_ZERO					1E-10	// Precision for comparison with zero
+#define PP_EPS_ON_HYPERPLANE		1E-10	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
-// Elapsed time: 0
+// Elapsed time: 0      Simplex noMPI
 // Number of iterations: 5
-// Computed objective value: 397.93897364631123991785
-// Maximal objective value:  397.93897364631123991785
+// Computed objective value: 397.938973646311296761269
+// Maximal objective value:  397.938973646311296761269
 // Relative error = 0
-// Distance to polytope: 0
+// Distance to polytope: 1.4088741e-16
 //------------------------------------------------------------------------------
 
 /*============================== rnd5-100 LP problem ===========================*
@@ -403,12 +405,12 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_EPS_ZERO					1E-11	// Precision for comparison with zero
 #define PP_EPS_ON_HYPERPLANE		1E-8	// Accuracy of belonging to hyperplane
 //------------------------------------------------------------------------------
-// Elapsed time: 0
-// Number of iterations: 11
-// Computed objective value: 617.504337008263746611192
-// Maximal objective value:  617.504337008263746611192
+// Elapsed time: 0      Simplex noMPI
+// Number of iterations: 12
+// Computed objective value: 617.504337008263632924354
+// Maximal objective value:  617.504337008263632924354
 // Relative error = 0
-// Distance to polytope: 1.3240302e-16
+// Distance to polytope: 2.4683649e-16
 //------------------------------------------------------------------------------
 
 /*============================== simple_lcv LP problem =========================*

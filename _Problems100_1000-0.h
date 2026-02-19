@@ -12,7 +12,8 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #pragma once
 
 //-------------------------- Compilation Modes ---------------------------------
-//#define PP_GRADIENT
+#define PP_GRADIENT
+#define PP_LOAD_BASIS
 //------------------------------------------------------------------------------
 #define PP_EPS_RELATIVE_ERROR			1E-11			// Used if defined PP_CHECK_MAX_OBJ_VALUE 
 
@@ -24,7 +25,7 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //#define PP_EPS_ON_HYPERPLANE		(PP_EPS_ZERO*1000)	// Accuracy of belonging to hyperplane
 //==============================================================================
 
-/*============================== cone100-1000-1 LP problem =========================*/
+/*============================== cone100-1000-1 LP problem =========================*
 #define PP_PROBLEM_NAME	"cone100-1000-1"
 #define PP_M	2100		// Number of equations (number of rows in *.mtx)
 #define PP_N	2200		// Number of variables (number of cols in *.mtx)
@@ -32,8 +33,6 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 //------------------------------------------------------------------------------
 #define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
 #define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
-#define PP_MIN_COS				0.8		// Minimum allowable cosine of angle between launch vector and direction vector
-#define PP_LAUNCH_VECTOR_LENGTH	1E+8	// Length of Objective Vector
 //------------------------------------------------------------------------------
 // Elapsed time: 9.3181261 (MPI)
 // Number of iterations: 919
@@ -41,6 +40,60 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 // Maximal objective value:  20000
 // Relative error = 0
 // Distance to polytope: 2.1884716e-12
+//------------------------------------------------------------------------------
+
+/*============================== cone200-200-1 LP problem =========================*
+// m = 800    n = 200
+#define PP_PROBLEM_NAME	"cone200-200-1"
+#define PP_M	600		// Number of equations (number of rows in *.mtx)
+#define PP_N	800		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 40000
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 33.799425	Simplex MPI
+// Number of iterations: 748
+// Computed objective value: 40000.0000000000218278728
+// Maximal objective value:  40000
+// Relative error = 5.46e-16
+// Distance to polytope: 1.8047785e-11
+//------------------------------------------------------------------------------
+
+/*============================== cone200-600-1 LP problem =========================*
+// m = 1600    n = 200
+#define PP_PROBLEM_NAME	"cone200-600-1"
+#define PP_M	1400		// Number of equations (number of rows in *.mtx)
+#define PP_N	1600		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 40000
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-5	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-5	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 70.726935	Simplex MPI
+// Number of iterations: 1170
+// Computed objective value: 39999.9999999998690327629
+// Maximal objective value:  40000
+// Relative error = 3.27e-15
+// Distance to polytope: 1.5830892e-11
+//------------------------------------------------------------------------------
+
+/*============================== cone200-1000-1 LP problem =========================*
+// m = 2400    n = 200
+#define PP_PROBLEM_NAME	"cone200-1000-1"
+#define PP_M	2200		// Number of equations (number of rows in *.mtx)
+#define PP_N	2400		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 40000
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-5	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-5	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 96.364986	Simplex MPI
+// Number of iterations: 1349
+// Computed objective value: 39999.9999999998981365934
+// Maximal objective value:  40000
+// Relative error = 2.55e-15
+// Distance to polytope: 7.0485839e-12
 //------------------------------------------------------------------------------
 
 /*============================== rnd100-0 LP problem ===========================*
@@ -154,12 +207,66 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_MAX_OBJ_VALUE 64079900
 //-----------------------------------------------------------------------------
 
-/*============================== tcube1K LP problem =========================*
+/*============================== tcube0K2 LP problem ==========================*
+#define PP_PROBLEM_NAME	"tcube0K2"
+#define PP_M	201		// Number of equations (number of rows in *.mtx)
+#define PP_N	401		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 4019900
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 8.295599	Simplex MPI
+// Number of iterations: 200
+// Computed objective value: 4019900
+// Maximal objective value:  4019900
+// Relative error = 0
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== tcube0K3 LP problem ===========================*
+#define PP_PROBLEM_NAME	"tcube0K3"
+#define PP_M	301		// Number of equations (number of rows in *.mtx)
+#define PP_N	601		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 9029900
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 47.532813	Simplex MPI
+// Number of iterations: 300
+// Computed objective value: 9029900
+// Maximal objective value:  9029900
+// Relative error = 0
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== tcube0K4 LP problem ===========================*
+#define PP_PROBLEM_NAME	"tcube0K4"
+#define PP_M	401		// Number of equations (number of rows in *.mtx)
+#define PP_N	801		// Number of variables (number of cols in *.mtx)
+#define PP_MAX_OBJ_VALUE 16039900
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
+//------------------------------------------------------------------------------
+// Elapsed time: 197.67316	Simplex MPI
+// Number of iterations: 400
+// Computed objective value: 16039900
+// Maximal objective value:  16039900
+// Relative error = 0
+// Distance to polytope: 0
+//------------------------------------------------------------------------------
+
+/*============================== tcube1K LP problem =========================*/
 #define PP_PROBLEM_NAME	"tcube1K" // Truncated hypercube
 #define PP_KK	1000		// Maximal number of edges that include surface point (compilator limit: 2 147 483 647)
 #define PP_M	1001		// Number of equations (number of rows in *.mtx)
 #define PP_N	2001	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 100099900
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
 //-----------------------------------------------------------------------------
 // Elapsed time: 21
 // Number of iterations: 6
@@ -175,6 +282,9 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_M	1501	// Number of equations (number of rows in *.mtx)
 #define PP_N	3001	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 225149900
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
 //-----------------------------------------------------------------------------
 
 /*============================== tcube2K LP problem =========================*
@@ -183,6 +293,9 @@ LP problems are available in https://github.com/leonid-sokolinsky/Set-of-LP-Prob
 #define PP_M	2001	// Number of equations (number of rows in *.mtx)
 #define PP_N	4001	// Number of variables (number of cols in *.mtx)
 #define PP_MAX_OBJ_VALUE 400199900
+//------------------------------------------------------------------------------
+#define PP_EPS_ZERO				1E-10	// Accuracy for comparison with zero
+#define PP_EPS_ON_HYPERPLANE	1E-10	// Accuracy of belonging to hyperplane
 //-----------------------------------------------------------------------------
 
 /*=============================================================================*/

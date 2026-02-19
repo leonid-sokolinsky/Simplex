@@ -123,22 +123,16 @@ void PC_bsf_Init(bool* success) {
 	if (BSF_sv_mpiRank == BSF_sv_mpiMaster) {
 		#ifdef PP_LOAD_BASIS
 		LoadBasis(PD_basis_v, success);
-		return;
-		#endif // PP_LOAD_BASIS
-
+		if (!*success)
+			return;
+		#else
 		#ifdef PP_RND_SEED
 		srand(PP_RND_SEED);
-		MakeRndBasis_v(PD_neHyperplanes_v, PD_mne_v, PD_meq_basis, PD_basis_v, PP_EPS_ZERO);
-		#ifdef PP_SAVE_BASIS
-		SaveBasis(PD_basis_v);
-		#endif // PP_SAVE_BASIS
-		return;
+		MakeRndBasis_v(PD_neHyperplanes_v, PD_mne_v, PD_meq_basis, PD_basis_v, PP_EPS_INVERSE);
+		#else
+		MakeBasis_v(PD_neHyperplanes_v, PD_mne_v, PD_meq_basis, PD_basis_v, PP_EPS_INVERSE);
 		#endif // PP_RND_SEED
-
-		MakeBasis_v(PD_neHyperplanes_v, PD_mne_v, PD_meq_basis, PD_basis_v, PP_EPS_ZERO);
-		#ifdef PP_SAVE_BASIS
-		SaveBasis(PD_basis_v);
-		#endif // PP_SAVE_BASIS
+		#endif // PP_LOAD_BASIS
 	}
 }
 
@@ -216,9 +210,6 @@ void PC_bsf_MapF(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T* reduceElem, int
 				Vector_Addition(BSF_sv_parameter.v, lambda_DOT_y, reduceElem->v_nex);
 				reduceElem->objF_nex = ObjF(reduceElem->v_nex);
 
-				/**
-				if (!PointBelongsToPolytope(reduceElem->v_nex, PP_EPS_ON_HYPERPLANE))
-					continue;/**/
 				assert(PointBelongsToPolytope(reduceElem->v_nex, PP_EPS_ON_HYPERPLANE));
 
 				#ifdef PP_GRADIENT
@@ -240,14 +231,6 @@ void PC_bsf_MapF(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T* reduceElem, int
 		*mapSuccess = false;
 		return;
 	}
-
-	/**
-	#ifdef _DEBUG
-	cout << "reduceElem->v_nex = ";
-	Vector_Print(reduceElem->v_nex, PP_EPS_ZERO);
-	cout << "reduceElem->objF_nex = " << reduceElem->objF_nex << "\t reduceElem->objF_grd = " << reduceElem->objF_grd << endl;
-	#endif // _DEBUG /**/
-
 } // end PC_bsf_MapF
 
 void PC_bsf_MapF_1(PT_bsf_mapElem_T* mapElem, PT_bsf_reduceElem_T_1* reduceElem, int* success) {
@@ -337,15 +320,6 @@ void PC_bsf_ParametersOutput(PT_bsf_parameter_T parameter) {
 	#ifdef _DEBUG
 	cout << "Number of inequality hyperplanes containing v:\t" << Number_IncludingNeHyperplanes(PD_v, PP_EPS_ON_HYPERPLANE) << endl;
 	#endif // _DEBUG
-
-	/*DEBUG PC_bsf_ParametersOutput**
-	#ifdef _DEBUG
-	if (!PointBelongsToPolytope(PD_v, PP_EPS_ON_HYPERPLANE))
-		cout << "v0 is outside feasible polytope!!!" << endl;
-	else
-		cout << "v0 belongs to feasible polytope." << endl;
-	//cout << "Including hyperplanes:\t"; Print_HyperplanesIncludingPoint(PD_v, PP_EPS_ON_HYPERPLANE); cout << endl;
-	#endif // _DEBUG /**/
 }
 
 void PC_bsf_ProblemOutput(PT_bsf_reduceElem_T* reduceResult, int reduceCounter, PT_bsf_parameter_T parameter, double t) {
@@ -356,7 +330,7 @@ void PC_bsf_ProblemOutput(PT_bsf_reduceElem_T* reduceResult, int reduceCounter, 
 	#endif // PP_MATRIX_OUTPUT
 
 	cout << "=================================================" << endl;
-	cout << "// Elapsed time: " << t << endl;
+	cout << "// Elapsed time: " << t << "\t" << PP_METHOD_NAME << endl;
 	cout << "// Number of iterations: " << PD_iterNo << endl;
 	cout << "// Computed objective value: " << setprecision(24) << PD_objF_v << endl;
 	#ifdef PP_MAX_OBJ_VALUE
@@ -365,9 +339,6 @@ void PC_bsf_ProblemOutput(PT_bsf_reduceElem_T* reduceResult, int reduceCounter, 
 	#endif // PP_MAX_OBJ_VALUE
 	cout << "// Distance to polytope: " << Distance_PointToPolytope(PD_v) << endl;
 	cout << "=================================================" << endl;
-	#ifdef _DEBUG
-	//cout << "Solution point:\t"; Vector_Print(PD_v); cout << endl;
-	#endif // _DEBUG
 
 	#ifdef PP_SAVE_RESULT
 	if (MTX_SaveVector(PD_v, PP_MTX_POSTFIX_SO))
@@ -399,9 +370,9 @@ void PC_bsf_ProcessResults(PT_bsf_reduceElem_T* reduceResult, int reduceCounter,
 	assert(reduceCounter > 0);
 
 	#ifdef _DEBUG
-	if (!PointIsVertex(reduceResult->v_nex, PP_EPS_ZERO, PP_EPS_ON_HYPERPLANE)) {
+	if (!PointIsVertex(reduceResult->v_nex, PP_EPS_INVERSE, PP_EPS_ON_HYPERPLANE)) {
 		cout << "PC_bsf_ProcessResults error: reduceResult->v_nex is NOT vertex with precision of PP_EPS_ON_HYPERPLANE = "
-			<< PP_EPS_ON_HYPERPLANE << " and PP_EPS_ZERO = " << PP_EPS_ZERO << endl;
+			<< PP_EPS_ON_HYPERPLANE << " and PP_EPS_INVERSE = " << PP_EPS_INVERSE << endl;
 		*exit = true;
 		return;
 	}
@@ -2360,13 +2331,6 @@ namespace SF {
 		double a_DoT_x_MinuS_b = Vector_DotProduct(_A[i], x) - _b[i];
 		double distanceToHyperplane = fabs(a_DoT_x_MinuS_b) / _norm_a[i];
 
-		/**
-		#ifdef _DEBUG
-		if (distanceToHyperplane > eps_on_hyperplane && distanceToHyperplane < eps_on_hyperplane * 10) {
-			cout << "PointBelongsToHalfspace_i: Distance from testing point is less than " << eps_on_hyperplane * 10 << ", but greater than " << eps_on_hyperplane << "!" << endl;
-		}
-		#endif // _DEBUG /**/
-
 		if (a_DoT_x_MinuS_b < eps_on_hyperplane)
 			return true;
 
@@ -2381,13 +2345,6 @@ namespace SF {
 
 	static inline bool PointBelongsToHyperplane_i(PT_vector_T x, int i, double eps_on_hyperplane) {
 		double dist = Distance_PointToHyperplane_i(x, i);
-
-		/**
-		#ifdef _DEBUG
-		if (dist > eps_on_hyperplane && dist < eps_on_hyperplane * 10) {
-			cout << "PointBelongsToHyperplane_i: Distance from testing point is less than " << eps_on_hyperplane * 10 << ", but greater than " << eps_on_hyperplane << "!" << endl;
-		}
-		#endif // _DEBUG /**/
 
 		if (dist < eps_on_hyperplane)
 			return true;
@@ -2791,14 +2748,14 @@ namespace SF {
 namespace PF {
 	using namespace SF;
 
-	static inline void AddToBasis(int i, int* basis, int m_basis, bool* success, double eps_zero) {
+	static inline void AddToBasis(int i, int* basis, int m_basis, bool* success, double eps_inverse) {
 		basis[m_basis] = i;
 		if (m_basis == 0) {
 			*success = true;
 			return;
 		}
 		int rank;
-		Matrix_Rank(basis, m_basis + 1, &rank, eps_zero);
+		Matrix_Rank(basis, m_basis + 1, &rank, eps_inverse);
 		if (rank == m_basis + 1)
 			*success = true;
 		else
@@ -2809,6 +2766,8 @@ namespace PF {
 		*lambda_min = PP_INFINITY;
 		*j_star = -1;
 		for (int j = 0; j < PD_m; j++) {
+			if (PD_isEquation[j])
+				continue;
 			double a_j_DOT_y = Vector_DotProduct(_A[j], y);
 			if (a_j_DOT_y > eps_zero) {
 				double lambda = (_b[j] - Vector_DotProduct(_A[j], v)) / a_j_DOT_y;
@@ -2927,7 +2886,7 @@ namespace PF {
 				PD_A0[i][j] = _A[basis_v[i]][j];
 	}
 
-	static inline void Pre_Make_AI_v(double eps_zero, bool* success) {
+	static inline void Pre_Make_A0I(double eps_inverse, bool* success) {
 		double factor;
 
 		*success = true;
@@ -2944,11 +2903,11 @@ namespace PF {
 
 		for (int j = 0; j < _n; j++) {
 
-			if (fabs(_D[j][j]) <= eps_zero) { // Search for a non-zero below
+			if (fabs(_D[j][j]) <= eps_inverse) { // Search for a non-zero below
 				int i_ne_0 = -1;
 				for (int i = j + 1; i < _n; i++) {
 					if (i_ne_0 == -1) {
-						if (fabs(_D[i][j]) > eps_zero)
+						if (fabs(_D[i][j]) > eps_inverse)
 							i_ne_0 = i;
 					}
 					else {
@@ -2972,7 +2931,7 @@ namespace PF {
 					int j_ne_0 = -1; // Search for a non-zero on the right
 					for (int lj = j + 1; lj < _n; lj++) {
 						if (j_ne_0 == -1) {
-							if (fabs(_D[j][lj]) > eps_zero)
+							if (fabs(_D[j][lj]) > eps_inverse)
 								j_ne_0 = lj;
 						}
 						else {
@@ -3047,22 +3006,13 @@ namespace PF {
 		#ifdef _DEBUG
 		int rank;
 		Matrix_Rank(basis_v, _n, &rank, PP_EPS_ZERO);
-
-		/* debugging *
-		if (rank != _n) {
-			rank = rank;
-		}/* end debugging */
 		assert(rank == _n); // Try to decrease PP_EPS_ZERO
-		#endif _DEBUG /**/
+		#endif // _DEBUG
 
 		Pre_Make_A0(basis_v);
 
 		bool success;
-		Pre_Make_AI_v(PP_EPS_ZERO, &success);
-		/* debugging *
-		if (!success) {
-			success = success;
-		}/* end debugging */
+		Pre_Make_A0I(PP_EPS_INVERSE, &success);
 		assert(success);
 	
 		Pre_Make_cA0I(cA0I);

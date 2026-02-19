@@ -27,27 +27,38 @@ This source code has been produced with using BSF-skeleton
 #include "_Problems-Klee-Minty-Cube.h"
 #define PP_PATH "../../Set-of-LP-Problems/Klee-Minty-Cube/"
 
-/**/
+/**
 #include "_Problems-Miscellaneous.h"
 #define PP_PATH "../../Set-of-LP-Problems/Miscellaneous-LP/"
 
-/**
+/**/
 #include "_Problems-NetLib-LP.h"
 #define PP_PATH "../../Set-of-LP-Problems/NetLib-LP/"
 
 /*------------------------------------------------------------------------------*/
 
-#define PP_METHOD_NAME "Simplex"
+#define PP_METHOD_NAME "Simplex MPI"
 
 //-------------------------- Compilation Modes ---------------------------------
-//#define _NDEBUG
 #define PP_NORMALIZATION
-//#define PP_ITER_OUTPUT 
+#define PP_ITER_OUTPUT 
 //#define PP_MATRIX_OUTPUT
 //#define PP_SAVE_BASIS
 //#define PP_SAVE_ITER_RESULT
 //#define PP_SAVE_RESULT
 //#define PP_BASIS_GAUGE
+
+#ifndef PP_EPS_INVERSE
+#define PP_EPS_INVERSE PP_EPS_ZERO
+#endif
+
+#ifndef PP_EPS_ON_HYPERPLANE
+#define PP_EPS_ON_HYPERPLANE PP_EPS_ZERO
+#endif
+
+#ifndef PP_EPS_RELATIVE_ERROR
+#define PP_EPS_RELATIVE_ERROR PP_EPS_ZERO
+#endif
 
 //================================ Problem Paramrters ==========================
 #define PP_MM							(PP_M+2*PP_N)	// Maximal number of constraints
